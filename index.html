@@ -1,0 +1,998 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>富士長野雪國之旅</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFCF6; --ink:#3E3A39; --coral:#F2A497; --yellow:#F6D27A; --blue:#A8D3E6; --green:#B9DAA5;
+  --cream:#FFFBF3; --pink-snow:#FCEFEF; --ice:#EAF4FC; --tea:#EADFD2; --sky:#EBF7FC; --butter:#FEECA6;
+  --line:3px solid var(--ink); --r:22px; --r-sm:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--paper);color:var(--ink);margin:0;font-family:"Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.6;font-size:16px;overflow-x:hidden;-webkit-text-size-adjust:100%}
+a{color:inherit}
+button,input{font-family:inherit;color:inherit;font-size:inherit}
+.wrap{max-width:780px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- 雪花 ---------- */
+#snow{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.flake{position:absolute;top:-20px;border-radius:50%;background:#fff;border:1.5px solid var(--blue);animation:fall linear infinite}
+@keyframes fall{to{transform:translate(var(--dx),110vh)}}
+
+/* ---------- 導覽 ---------- */
+header.nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;background:var(--paper);border-bottom:var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+.nav-in{max-width:780px;margin:0 auto;display:flex;align-items:center;gap:10px;padding-block:8px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
+.brand{display:flex;align-items:center;gap:6px;font-size:17px;white-space:nowrap;text-decoration:none}
+.brand svg{width:34px;height:26px}
+.nav-links{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.nav-links a:first-child{margin-left:auto}
+.days{position:relative}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{flex:none;text-decoration:none;font-size:14px;padding:5px 11px;border:2px solid var(--ink);border-radius:999px;background:var(--cream)}
+.nav-links a:hover,.nav-links a.on{background:var(--yellow)}
+main{position:relative;z-index:2;padding-top:64px}
+section{padding:26px 0 8px}
+h2.sec{display:flex;align-items:center;gap:10px;font-size:22px;margin-bottom:14px;font-weight:400}
+h2.sec .dot{width:30px;height:30px;border:var(--line);border-radius:50%;display:grid;place-items:center;flex:none}
+h2.sec .dot svg{width:18px;height:18px}
+
+/* ---------- 卡片 ---------- */
+.card{background:var(--cream);border:var(--line);border-radius:var(--r);padding:16px;margin-bottom:14px;position:relative}
+.card.ice{background:var(--ice)} .card.pink{background:var(--pink-snow)} .card.tea{background:var(--tea)} .card.sky{background:var(--sky)} .card.butter{background:var(--butter)}
+.muted{opacity:.75;font-size:14px}
+.pill{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:1px 10px;font-size:13px;background:var(--paper);margin:2px 4px 2px 0;white-space:nowrap}
+
+/* ---------- 主視覺 ---------- */
+.hero{padding-top:14px}
+.hero-card{background:var(--sky);border:var(--line);border-radius:28px;overflow:hidden;position:relative}
+.hero-art{display:block;width:100%;height:auto}
+.hero-txt{padding:14px 18px 18px;background:var(--paper);border-top:var(--line)}
+.hero-txt h1{font-size:26px;font-weight:400;letter-spacing:1px;line-height:1.35}
+.hero-txt p{font-size:14.5px;margin-top:4px}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.count div{background:var(--butter);border:var(--line);border-radius:16px;text-align:center;padding:6px 2px}
+.count b{display:block;font-size:26px;font-weight:400;line-height:1.2}
+.count span{font-size:12.5px}
+.clocks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.clock{border:var(--line);border-radius:18px;padding:8px 12px;display:flex;align-items:center;gap:10px}
+.clock.tw{background:var(--pink-snow)} .clock.jp{background:var(--ice)}
+.clock svg{width:30px;height:30px;flex:none}
+.clock .t{font-size:20px;line-height:1.1;font-variant-numeric:tabular-nums}
+.clock .l{font-size:12.5px}
+
+/* ---------- 航班 ---------- */
+.flight{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin:10px 0 6px}
+.flight .ap{text-align:center}
+.flight .ap b{font-size:26px;font-weight:400;display:block;line-height:1.1}
+.flight .ap small{font-size:13px}
+.flight .mid{text-align:center;font-size:12.5px}
+.flight .mid svg{width:66px;height:30px;display:block;margin:0 auto}
+.fhead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.fhead .no{font-size:20px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:14px;margin-top:8px}
+.kv dt{opacity:.75}
+
+/* ---------- 日期切換 ---------- */
+.days{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:thin;scroll-snap-type:x mandatory}
+.days button{flex:none;scroll-snap-align:start;border:var(--line);border-radius:18px;background:var(--cream);padding:6px 10px;cursor:pointer;text-align:center;min-width:64px;line-height:1.25}
+.days button b{display:block;font-size:18px;font-weight:400}
+.days button small{font-size:12px}
+.days button[aria-selected="true"]{background:var(--coral);transform:translateY(-2px)}
+.days button:focus-visible,.btn:focus-visible,.nav-links a:focus-visible{outline:3px dashed var(--ink);outline-offset:2px}
+
+.day-head{display:flex;gap:12px;align-items:center}
+.day-head .ill{width:84px;height:84px;flex:none;border:var(--line);border-radius:20px;background:var(--sky);overflow:hidden}
+.day-head .ill svg{width:100%;height:100%;display:block}
+.day-head h3{font-size:20px;font-weight:400;line-height:1.35}
+.day-head .sub{font-size:13.5px;margin-top:2px}
+.bounce{animation:bounce .55s cubic-bezier(.3,1.6,.5,1)}
+@keyframes bounce{0%{transform:translateY(14px) scale(.97);opacity:0}60%{opacity:1}100%{transform:none}}
+
+
+/* 天氣 */
+.wx{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.wx .big{font-size:34px;line-height:1}
+.wx .tt{font-size:24px}
+.wx .lbl{font-size:13px}
+.wx-ref{font-size:13px;margin-top:6px;padding-top:6px;border-top:2px dashed var(--ink)}
+
+/* 時間軸 */
+.tl{list-style:none;position:relative;margin-top:6px}
+.tl::before{content:"";position:absolute;left:58px;top:8px;bottom:8px;border-left:3px dashed var(--ink)}
+.tl li{display:grid;grid-template-columns:50px 1fr;gap:18px;margin-bottom:12px;position:relative}
+.tl .time{text-align:right;font-size:14px;padding-top:12px;font-variant-numeric:tabular-nums;line-height:1.2}
+.tl .node{position:absolute;left:51px;top:14px;width:17px;height:17px;border:3px solid var(--ink);border-radius:50%;background:var(--paper);z-index:1}
+.tl li.star .node{background:var(--yellow);width:21px;height:21px;left:49px;top:12px}
+.stop{background:var(--cream);border:var(--line);border-radius:18px;padding:10px 12px}
+.tl li.star .stop{background:var(--butter)}
+.stop .ttl{font-size:16.5px;line-height:1.4}
+.stop .ttl .st{display:inline-block;background:var(--coral);border:2px solid var(--ink);border-radius:999px;font-size:11.5px;padding:0 7px;margin-left:4px;vertical-align:2px}
+.stop .note{font-size:13.5px;margin-top:4px;white-space:pre-line}
+.tags{margin-top:4px}
+.tag{display:inline-block;font-size:12px;border:2px solid var(--ink);border-radius:8px;padding:0 7px;margin:2px 4px 0 0}
+.t-plane{background:var(--blue)} .t-train{background:var(--green)} .t-car{background:var(--yellow)} .t-bus{background:var(--coral)} .t-walk{background:var(--tea)} .t-hotel{background:var(--pink-snow)} .t-rest{background:var(--sky)} .t-food{background:var(--butter)}
+.acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.fx-top{display:flex;align-items:center;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.fx-top input{width:110px}
+#rate input[type=number]{border:2px solid var(--ink);border-radius:12px;padding:6px 10px;background:var(--paper);min-width:0;font-size:17px}
+.fx-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:end;margin-top:8px}
+.fx-row label{display:flex;flex-direction:column;gap:4px;font-size:14px;min-width:0}
+.fx-row input{width:100%;box-sizing:border-box}
+.fx-row span{padding-bottom:8px}
+.fx-quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.fx-tax{display:flex;gap:6px;align-items:center;margin-top:10px;font-size:14px}
+.fx-meta{font-size:13px;margin:6px 0 0}
+.fst{margin-top:10px;border:2px dashed var(--ink);border-radius:14px;padding:10px 12px;background:var(--paper)}
+.fst .fsh{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-weight:700}
+.fst .stp{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:1px 10px;font-size:13px;background:var(--paper)}
+.fst .stp.ok{background:var(--green)} .fst .stp.warn{background:var(--yellow)} .fst .stp.bad{background:var(--coral)} .fst .stp.info{background:var(--blue)}
+.fst .fsd{font-size:14px;margin:6px 0 4px;line-height:1.5}
+.fst .fsm{font-size:12px;opacity:.75;margin:0 0 6px}
+.fst .fsl{display:flex;flex-wrap:wrap;gap:6px}
+.btn{display:inline-flex;align-items:center;gap:4px;border:2px solid var(--ink);border-radius:999px;padding:3px 10px;font-size:13px;text-decoration:none;background:var(--paper);cursor:pointer}
+.btn:hover{background:var(--yellow)}
+.btn.nav{background:var(--ice)} .btn.park{background:var(--butter)} .btn.tel{background:var(--pink-snow)}
+.mc{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;flex-wrap:wrap}
+.mcv{font-weight:400;font-size:16px;letter-spacing:.5px;font-variant-numeric:tabular-nums;background:var(--paper);border:2px dashed var(--ink);border-radius:8px;padding:0 8px;-webkit-user-select:all;user-select:all}
+.mc a{font-size:12px}
+.daylinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+
+/* 路線手繪板 */
+.board{background:var(--tea);border:var(--line);border-radius:var(--r);padding:10px;margin-top:6px}
+.board svg{width:100%;height:auto;display:block;background:var(--paper);border:3px solid var(--ink);border-radius:16px}
+.board .cap{font-size:13px;margin:6px 4px 0}
+.mapb{background:#F1F4EF;border:1px solid #D6DDD3;border-radius:16px;padding:10px;margin-top:6px;color:#33424B}
+.mapb svg{width:100%;max-width:560px;margin:0 auto;height:auto;display:block;border-radius:10px}
+.mapb .mlg{max-width:560px;margin-left:auto;margin-right:auto}
+.mapb .mlg{background:#fff;border:1px solid #DCE2D9;border-radius:12px;padding:8px 10px;margin-top:8px;display:grid;gap:5px}
+.mapb .mlg div{display:grid;grid-template-columns:52px 40px 1fr;align-items:center;gap:6px;font-size:13px;line-height:1.35}
+.mapb .mlg .cd{color:#5B7380;font-size:12px}
+.mapb .mlg svg{width:40px;height:10px;border-radius:0}
+.mapb .cap{font-size:12.5px;margin:8px 2px 0;color:#5B6B73}
+
+
+/* 住宿 */
+.hotel h3{font-size:18.5px;font-weight:400;line-height:1.35}
+.hotel .date{display:inline-block;background:var(--coral);border:2px solid var(--ink);border-radius:999px;padding:0 10px;font-size:13px;margin-bottom:6px}
+.paid{background:var(--green)!important} .unpaid{background:var(--yellow)!important} .onsite{background:var(--blue)!important}
+
+/* 清單 */
+.todo-add{display:flex;gap:8px;margin-bottom:12px}
+.todo-add input{flex:1;min-width:0;border:var(--line);border-radius:14px;padding:8px 12px;background:var(--paper)}
+.todo-add button{border:var(--line);border-radius:14px;background:var(--green);padding:0 16px;cursor:pointer}
+.todo{list-style:none}
+.todo li{display:flex;align-items:flex-start;gap:10px;padding:9px 4px;border-bottom:2px dashed var(--tea)}
+.todo input[type=checkbox]{appearance:none;-webkit-appearance:none;width:22px;height:22px;flex:none;border:3px solid var(--ink);border-radius:7px;background:var(--paper);cursor:pointer;margin-top:1px;display:grid;place-items:center}
+.todo input[type=checkbox]:checked{background:var(--green)}
+.todo input[type=checkbox]:checked::after{content:"";width:6px;height:11px;border:solid var(--ink);border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.todo label{flex:1;cursor:pointer;font-size:15px}
+.todo li.done label{text-decoration:line-through;opacity:.55}
+.todo .del{border:2px solid var(--ink);background:var(--pink-snow);border-radius:8px;width:28px;height:28px;cursor:pointer;flex:none;line-height:1}
+.todo .grp{font-size:13px;opacity:.7}
+.todo-tools{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:13px;gap:8px;flex-wrap:wrap}
+.prog{height:14px;border:var(--line);border-radius:999px;background:var(--paper);overflow:hidden;margin-bottom:12px}
+.prog i{display:block;height:100%;background:var(--green);border-right:3px solid var(--ink);width:0;transition:width .4s}
+
+footer{text-align:center;padding:30px 16px 40px;font-size:13px;position:relative;z-index:2}
+footer svg{width:120px;height:60px;display:block;margin:0 auto 6px}
+
+/* 插圖動畫 */
+.float{animation:float 4s ease-in-out infinite}
+.drift{animation:drift 14s ease-in-out infinite alternate}
+.steam{animation:steam 3s ease-in-out infinite}
+.train-run{animation:run 9s linear infinite}
+@keyframes float{50%{transform:translateY(-4px)}}
+@keyframes drift{to{transform:translateX(40px)}}
+@keyframes steam{0%{opacity:0;transform:translateY(4px)}50%{opacity:.9}100%{opacity:0;transform:translateY(-10px)}}
+@keyframes run{0%{transform:translateX(-260px)}100%{transform:translateX(820px)}}
+
+@media (min-width:700px){
+  .hero-txt h1{font-size:32px}
+  .clocks{max-width:520px}
+  .tl::before{left:76px}
+  .tl li{grid-template-columns:66px 1fr;gap:22px}
+  .tl .node{left:69px} .tl li.star .node{left:67px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  #snow{display:none}
+  html{scroll-behavior:auto}
+}
+@media print{#snow,header.nav{display:none}main{padding-top:0}}
+</style>
+
+<div id="snow" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="回到頂端">
+      <svg viewBox="0 0 34 26" aria-hidden="true"><path d="M2 24 L13 5 Q17 1 21 5 L32 24 Z" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/><path d="M10 10 L13 5 Q17 1 21 5 L24 10 L21 12 L18.5 9.5 L16 12.5 L13 9.5 Z" fill="#fff" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/></svg>
+      雪國之旅
+    </a>
+    <nav class="nav-links" aria-label="主選單">
+      <a href="#flight">航班</a>
+      <a href="#plan">每日行程</a>
+      <a href="#rate">匯率</a>
+      <a href="#hotel">住宿</a>
+      <a href="#todo">待辦清單</a>
+      <a href="#more">備案</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- 主視覺 -->
+  <section class="hero wrap">
+    <div class="hero-card">
+      <svg class="hero-art" viewBox="0 0 760 360" role="img" aria-label="雪中的富士山、五重塔、新幹線與泡溫泉的雪猴插圖">
+        <rect width="760" height="360" fill="#EBF7FC"/>
+        <circle cx="640" cy="70" r="34" fill="#FEECA6" stroke="#3E3A39" stroke-width="3"/>
+        <g class="drift"><path d="M60 80 q14-22 36-10 q16-16 34 2 q20 0 16 18 h-90 q-12-2 4-10z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/></g>
+        <g class="drift" style="animation-duration:18s"><path d="M440 50 q12-18 30-8 q14-12 28 2 q16 0 12 14 h-74 q-10-2 4-8z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/></g>
+        <!-- 遠山 -->
+        <path d="M0 250 L90 175 L170 235 L250 190 L330 250 Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M520 250 L600 190 L670 230 L720 200 L760 225 L760 250 Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+        <!-- 富士山 -->
+        <path d="M170 262 L330 92 Q380 58 430 92 L590 262 Z" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M285 140 L330 92 Q380 58 430 92 L475 140 L450 152 L428 132 L405 156 L380 134 L355 156 L332 132 L310 152 Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+        <!-- 五重塔 -->
+        <g transform="translate(110 150)">
+          <rect x="22" y="20" width="20" height="96" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/>
+          <g fill="#3E3A39"><path d="M2 32 h60 l-8 -10 h-44z"/><path d="M5 52 h54 l-7 -9 h-40z"/><path d="M8 72 h48 l-6 -9 h-36z"/><path d="M11 92 h42 l-6 -9 h-30z"/><path d="M14 112 h36 l-5 -8 h-26z"/></g>
+          <g fill="#FFFCF6"><rect x="2" y="30" width="60" height="4" rx="2"/><rect x="5" y="50" width="54" height="4" rx="2"/><rect x="8" y="70" width="48" height="4" rx="2"/><rect x="11" y="90" width="42" height="4" rx="2"/></g>
+          <line x1="32" y1="2" x2="32" y2="22" stroke="#3E3A39" stroke-width="3"/>
+        </g>
+        <!-- 雪地 -->
+        <path d="M0 262 Q190 240 380 262 T760 258 V360 H0 Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3.5"/>
+        <!-- 鐵道 -->
+        <line x1="0" y1="300" x2="760" y2="300" stroke="#3E3A39" stroke-width="3" stroke-dasharray="14 8"/>
+        <g class="train-run">
+          <path d="M0 270 h150 q40 0 52 22 v6 h-202 z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+          <rect x="0" y="284" width="204" height="5" fill="#A8D3E6"/>
+          <g fill="#A8D3E6" stroke="#3E3A39" stroke-width="2"><rect x="14" y="275" width="20" height="9" rx="3"/><rect x="44" y="275" width="20" height="9" rx="3"/><rect x="74" y="275" width="20" height="9" rx="3"/><rect x="104" y="275" width="20" height="9" rx="3"/><path d="M150 275 h12 q14 2 22 12 h-34z"/></g>
+        </g>
+        <!-- 溫泉雪猴 -->
+        <g transform="translate(560 300)">
+          <ellipse cx="70" cy="34" rx="84" ry="20" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3"/>
+          <g class="steam"><path d="M30 6 q-8 -10 0 -20 q8 -10 0 -20" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/></g>
+          <g class="steam" style="animation-delay:1s"><path d="M110 6 q-8 -10 0 -20 q8 -10 0 -20" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/></g>
+          <g class="float">
+            <circle cx="70" cy="22" r="22" fill="#EADFD2" stroke="#3E3A39" stroke-width="3"/>
+            <ellipse cx="70" cy="26" rx="13" ry="12" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/>
+            <circle cx="65" cy="23" r="2" fill="#3E3A39"/><circle cx="75" cy="23" r="2" fill="#3E3A39"/>
+            <path d="M66 30 q4 3 8 0" stroke="#3E3A39" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M54 4 q16 -12 32 0 q-16 -4 -32 0z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/>
+          </g>
+          <path d="M-14 34 q84 14 168 0" fill="none" stroke="#3E3A39" stroke-width="3"/>
+        </g>
+        <!-- 雪人 -->
+        <g transform="translate(40 300)">
+          <circle cx="20" cy="26" r="18" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
+          <circle cx="20" cy="0" r="12" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
+          <circle cx="16" cy="-2" r="1.8" fill="#3E3A39"/><circle cx="24" cy="-2" r="1.8" fill="#3E3A39"/>
+          <path d="M18 3 l6 2 l-6 1z" fill="#F2A497" stroke="#3E3A39" stroke-width="1.2"/>
+          <path d="M8 8 h24 v5 h-24z" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/>
+        </g>
+      </svg>
+      <div class="hero-txt">
+        <h1>富士山 × 長野雪國之旅</h1>
+        <p>2027/2/16（二）～ 2/25（四）｜2 人｜自駕 × 新幹線 × 婚紗拍攝</p>
+        <div class="count" id="count" aria-live="polite">
+          <div><b id="cd-d">--</b><span>天</span></div>
+          <div><b id="cd-h">--</b><span>時</span></div>
+          <div><b id="cd-m">--</b><span>分</span></div>
+          <div><b id="cd-s">--</b><span>秒</span></div>
+        </div>
+        <p class="muted" id="cd-note" style="margin-top:6px">距離 2/16 14:00 高雄起飛</p>
+        <div class="clocks">
+          <div class="clock tw">
+            <svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="12" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5"/><line id="tw-h" x1="15" y1="15" x2="15" y2="9" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/><line id="tw-m" x1="15" y1="15" x2="15" y2="6" stroke="#F2A497" stroke-width="2" stroke-linecap="round"/></svg>
+            <div><div class="l">台灣時間</div><div class="t" id="tw-t">--:--</div><div class="l" id="tw-d"></div></div>
+          </div>
+          <div class="clock jp">
+            <svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="12" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5"/><line id="jp-h" x1="15" y1="15" x2="15" y2="9" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/><line id="jp-m" x1="15" y1="15" x2="15" y2="6" stroke="#A8D3E6" stroke-width="2" stroke-linecap="round"/></svg>
+            <div><div class="l">日本時間 +1h</div><div class="t" id="jp-t">--:--</div><div class="l" id="jp-d"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 航班 -->
+  <section id="overview" class="wrap">
+    <h2 class="sec"><span class="dot" style="background:var(--green)"><svg viewBox="0 0 18 18"><path d="M2 14 L6 4 L11 11 L16 6" fill="none" stroke="#3E3A39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>全程路線</h2>
+    <div id="ov"></div>
+  </section>
+
+  <section id="flight" class="wrap">
+    <h2 class="sec"><span class="dot" style="background:var(--blue)"><svg viewBox="0 0 18 18"><path d="M2 10 l14 -6 l-3 6 l3 6 z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/></svg></span>航班資訊</h2>
+    <div class="card ice">
+      <div class="fhead"><span class="no">去程｜捷星 GK018</span><span class="pill">2/16（二）</span></div>
+      <div class="flight">
+        <div class="ap"><b>KHH</b><small>高雄 14:00</small></div>
+        <div class="mid"><svg viewBox="0 0 66 30" aria-hidden="true"><path d="M2 22 Q33 2 64 22" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-dasharray="5 5"/><path d="M28 10 l12 -4 l-2 5 l2 5 z" fill="#F2A497" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/></svg>3 小時 30 分</div>
+        <div class="ap"><b>NRT</b><small>成田 18:30</small></div>
+      </div>
+      <dl class="kv">
+        <dt>航廈</dt><dd>抵達 <b>成田第 3 航廈（T3）</b></dd>
+        <dt>機型</dt><dd>Airbus A320｜基本票</dd>
+        <dt>行李</dt><dd>隨身每人 7 kg；託運 1 件 25 kg（出發前確認加在哪位乘客）</dd>
+        <dt>費用</dt><dd>NT$9,956 ✅ 已付</dd>
+        <dt>提醒</dt><dd>同一架飛機先飛 GK17（成田 09:25 → 高雄 13:00）。2/16 台灣 08:25 先查 GK17 是否準時。</dd>
+      </dl>
+      <div class="fst" data-f="GK018"></div>
+    </div>
+    <div class="card pink">
+      <div class="fhead"><span class="no">回程｜長榮 BR107</span><span class="pill">2/25（四）</span></div>
+      <div class="flight">
+        <div class="ap"><b>NRT</b><small>成田 12:25</small></div>
+        <div class="mid"><svg viewBox="0 0 66 30" aria-hidden="true"><path d="M2 22 Q33 2 64 22" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-dasharray="5 5"/><path d="M28 10 l12 -4 l-2 5 l2 5 z" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/></svg>4 小時 20 分</div>
+        <div class="ap"><b>KHH</b><small>高雄 15:45</small></div>
+      </div>
+      <dl class="kv">
+        <dt>航廈</dt><dd>出發 <b>成田第 1 航廈 南翼（T1）</b></dd>
+        <dt>機型</dt><dd>A330-300</dd>
+        <dt>行李</dt><dd>託運每人 23 kg；隨身每人 7 kg</dd>
+        <dt>費用</dt><dd>NT$15,003（2 人）✅ 已付</dd>
+        <dt>到機場</dt><dd>京成上野 約 08:40 搭 Skyliner → 約 09:25 成田機場站（T1）</dd>
+      </dl>
+      <div class="fst" data-f="BR107"></div>
+    </div>
+  </section>
+
+  <!-- 每日行程 -->
+  <section id="plan" class="wrap">
+    <h2 class="sec"><span class="dot" style="background:var(--coral)"><svg viewBox="0 0 18 18"><rect x="2" y="3" width="14" height="13" rx="3" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/><line x1="2" y1="7" x2="16" y2="7" stroke="#3E3A39" stroke-width="2"/></svg></span>每日行程</h2>
+    <div class="days" id="days" role="tablist" aria-label="選擇日期"></div>
+    <div id="dayview" role="tabpanel" aria-live="polite"></div>
+  </section>
+
+  <!-- 住宿 -->
+  <section id="rate" class="wrap">
+    <h2 class="sec"><span class="dot" style="background:var(--yellow)"><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="7" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/><path d="M6 5 L9 9 L12 5 M9 9 V14 M6.5 10 H11.5" fill="none" stroke="#3E3A39" stroke-width="1.8" stroke-linecap="round"/></svg></span>匯率換算</h2>
+    <div class="card butter">
+      <div class="fx-top"><span>¥1 = NT$</span><input id="fx-rate" type="number" step="0.0001" inputmode="decimal" aria-label="匯率"></div>
+      <p class="fx-meta" id="fx-meta">讀取今日匯率中…</p>
+      <div class="fx-row">
+        <label>日幣 ¥<input id="fx-jpy" type="number" inputmode="decimal" placeholder="輸入日幣"></label>
+        <span aria-hidden="true">⇄</span>
+        <label>台幣 NT$<input id="fx-twd" type="number" inputmode="decimal" placeholder="輸入台幣"></label>
+      </div>
+      <div class="fx-quick" id="fx-quick"></div>
+      <label class="fx-tax"><input type="checkbox" id="fx-tax"> 標價是「稅抜（未稅）」，幫我加 10% 消費稅</label>
+      <p class="fx-meta">每天自動更新（資料：open.er-api.com）。手動改匯率後就固定用你填的數字，按「恢復自動」可以改回來。<button type="button" class="btn" id="fx-auto">恢復自動</button></p>
+    </div>
+  </section>
+
+  <section id="hotel" class="wrap">
+    <h2 class="sec"><span class="dot" style="background:var(--green)"><svg viewBox="0 0 18 18"><path d="M3 15 V8 L9 3 L15 8 V15 Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/><rect x="7.5" y="10" width="3" height="5" fill="#F2A497" stroke="#3E3A39" stroke-width="1.5"/></svg></span>住宿資訊</h2>
+    <div id="hotels"></div>
+    <div class="card butter">
+      <b>🚗 租車｜Nippon Rent-A-Car（樂天旅遊）</b>
+      <dl class="kv">
+        <dt>取車</dt><dd>2/18（四）09:00 到店取車（訂單時間 09:30，門市 08:00 開門）｜Mt. Fuji Kawaguchiko 店（河口湖站出口右轉約 3 分鐘）</dd>
+        <dt>還車</dt><dd>2/22（一）12:00（取車時跟門市說延到 17:00）｜長野站東口店｜Mapcode <b class="mcv">54 188 763*67</b></dd>
+        <dt>費用</dt><dd>¥62,810 現場付（基本 ¥37,510＋異地還車 ¥17,600＋碰撞險 ¥5,500＋NOC ¥2,200）</dd>
+        <dt>配備</dt><dd>雪胎、禁菸、衛星導航、ETC 機器（ETC 卡取車時確認）</dd>
+        <dt>訂單</dt><dd>編號 <b>RC32461347776889274</b>（2026/11/3 新訂單）</dd>
+        <dt>免費取消</dt><dd>2027/2/11 23:59（日本時間）前</dd>
+      </dl>
+      <div class="acts">
+        <a class="btn nav" href="https://maps.app.goo.gl/WCtQE2AD5LmauuseA" target="_blank" rel="noopener">📍 取車門市</a>
+        <a class="btn tel" href="tel:+815017122693">📞 050-1712-2693</a>
+        <a class="btn nav" href="https://maps.app.goo.gl/PR46LD2Z2RWdAHNh7" target="_blank" rel="noopener">📍 還車門市</a>
+        <a class="btn tel" href="tel:+815017122887">📞 050-1712-2887</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 待辦 -->
+  <section id="todo" class="wrap">
+    <h2 class="sec"><span class="dot" style="background:var(--yellow)"><svg viewBox="0 0 18 18"><rect x="3" y="3" width="12" height="12" rx="3" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/><path d="M6 9 l2 2 l4 -4" fill="none" stroke="#3E3A39" stroke-width="2" stroke-linecap="round"/></svg></span>旅遊待辦清單</h2>
+    <div class="card">
+      <div class="prog" aria-hidden="true"><i id="prog"></i></div>
+      <form class="todo-add" id="todo-form">
+        <input id="todo-in" type="text" placeholder="新增待辦，例如：買暖暖包" aria-label="新增待辦事項" maxlength="80">
+        <button type="submit">新增</button>
+      </form>
+      <ul class="todo" id="todo-list"></ul>
+      <div class="todo-tools"><span id="todo-count"></span><button class="btn" id="todo-reset" type="button">恢復預設清單</button></div>
+      <p class="muted" style="margin-top:8px">勾選狀態會存在這支手機的瀏覽器裡；換手機或清除瀏覽資料會重置。</p>
+    </div>
+  </section>
+
+  <!-- 備案 -->
+  <section id="more" class="wrap">
+    <h2 class="sec"><span class="dot" style="background:var(--blue)"><svg viewBox="0 0 18 18"><path d="M9 2 v14 M3 5 l12 8 M15 5 l-12 8" stroke="#3E3A39" stroke-width="2" stroke-linecap="round"/></svg></span>備案與提醒</h2>
+    <div class="card ice">
+      <b>❄️ 雪太少（出發前 1–2 週決定）</b>
+      <p class="note">2/23 改走：長野 → 高崎 → 越後湯澤，搭湯澤高原纜車玩雪，逛ぽんしゅ館，再搭上越新幹線回上野，晚上一樣看東京鐵塔。新幹線用 えきねっと 免費改票，決定前先不要領紙本票。</p>
+    </div>
+    <div class="card">
+      <b>🚌 2/18 高速巴士訂不到或大雪</b>
+      <p class="note">改搭富士回遊 3 號（新宿 07:30 → 河口湖 09:28，乘車前 1 個月 10:00 開賣），或其他時段的巴士。大雪時中央道可能封路，火車比較可靠。</p>
+    </div>
+    <div class="card sky">
+      <b>🚃 機場交通</b>
+      <p class="note">去程 2/16：Skyliner 刷臉（Face Check in Go）搭最近一班到日暮里，站內轉 JR 山手線往池袋・新宿方向，全程約 1.5 小時。刷臉的票不能走自動閘門，從有人的窗口出站。行李多或想省力可改搭 N'EX 直達新宿。
+回程 2/25：不用刷臉，1/26（乘車日前 30 天）一開放就訂 08:40 左右的指定班次和座位。Skyliner 有狀況時改搭京成本線 Access 特急／特急。</p>
+    </div>
+    <div class="card pink">
+      <b>✈️ 去程延誤</b>
+      <p class="note">2/16 台灣 08:25 查前一班 GK17（成田→高雄）。GK17 延誤，GK018 也會延誤；晚到要通知新宿 APA（24:00 前入住）。</p>
+    </div>
+    <div class="card butter">
+      <b>🌨️ 下大雪</b>
+      <p class="note">2/20：省略立石公園或諏訪湖畔，提早到松本。
+2/22：前一晚到當天早上下大雪，或山路路況不好，就不上戶隱，直接到長野還車，在長野站、善光寺周邊逛逛。
+每天 16:30 前結束開車；每開 2 小時內一定要有休息站或停靠點。</p>
+    </div>
+    <div class="card tea">
+      <b>🧳 行李</b>
+      <p class="note">USB-A 轉 Type-C 線（租車只有 USB 孔）、車用充電頭、防滑鞋或冰爪、零下 10°C 保暖衣物、防水外套、暖暖包、日圓現金（旅館可能只收現金）。新鮮水果不能帶回台灣。</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <svg viewBox="0 0 120 60" aria-hidden="true"><path d="M6 54 L44 16 Q60 4 76 16 L114 54 Z" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><path d="M34 26 L44 16 Q60 4 76 16 L86 26 L78 30 L70 22 L62 30 L54 22 L46 30 Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/></svg>
+  一路平安，玩得開心 ☃️<br><span class="muted">時刻、票價、營業時間以官方最新公告為準</span>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function gq(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);}
+function store(k,v){try{if(v===undefined){return localStorage.getItem(k);}localStorage.setItem(k,v);}catch(e){return null;}}
+
+/* ---------- 雪花 ---------- */
+if(!reduce){
+  var sn=document.getElementById("snow");
+  for(var i=0;i<26;i++){
+    var f=document.createElement("span");f.className="flake";
+    var s=4+Math.random()*7;
+    f.style.width=s+"px";f.style.height=s+"px";
+    f.style.left=(Math.random()*100)+"vw";
+    f.style.setProperty("--dx",(Math.random()*60-30)+"px");
+    f.style.animationDuration=(9+Math.random()*10)+"s";
+    f.style.animationDelay=(-Math.random()*18)+"s";
+    f.style.opacity=(0.55+Math.random()*0.4).toFixed(2);
+    sn.appendChild(f);
+  }
+}
+
+/* ---------- 倒數 ---------- */
+var target=new Date("2027-02-16T14:00:00+08:00").getTime();
+function pad(n){return (n<10?"0":"")+n;}
+function tick(){
+  var d=target-Date.now();
+  var ids=["cd-d","cd-h","cd-m","cd-s"];
+  if(d<=0){
+    ids.forEach(function(id){document.getElementById(id).textContent="0";});
+    document.getElementById("cd-note").textContent="旅程開始囉！一路平安 ✈️";
+  }else{
+    document.getElementById("cd-d").textContent=Math.floor(d/864e5);
+    document.getElementById("cd-h").textContent=pad(Math.floor(d%864e5/36e5));
+    document.getElementById("cd-m").textContent=pad(Math.floor(d%36e5/6e4));
+    document.getElementById("cd-s").textContent=pad(Math.floor(d%6e4/1e3));
+  }
+  clock("Asia/Taipei","tw");clock("Asia/Tokyo","jp");
+}
+var wk=["日","一","二","三","四","五","六"];
+function clock(tz,p){
+  var now=new Date(), parts={};
+  try{
+    new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit",second:"2-digit",weekday:"short"}).formatToParts(now).forEach(function(x){parts[x.type]=x.value;});
+  }catch(e){return;}
+  var h=parseInt(parts.hour,10)%24, m=parseInt(parts.minute,10);
+  document.getElementById(p+"-t").textContent=pad(h)+":"+pad(m)+":"+parts.second;
+  var wmap={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+  document.getElementById(p+"-d").textContent=parts.month+"/"+parts.day+"（"+wk[wmap[parts.weekday]]+"）";
+  var ha=((h%12)+m/60)*30*Math.PI/180, ma=m*6*Math.PI/180;
+  var hh=document.getElementById(p+"-h"), mm=document.getElementById(p+"-m");
+  hh.setAttribute("x2",(15+6*Math.sin(ha)).toFixed(2));hh.setAttribute("y2",(15-6*Math.cos(ha)).toFixed(2));
+  mm.setAttribute("x2",(15+9*Math.sin(ma)).toFixed(2));mm.setAttribute("y2",(15-9*Math.cos(ma)).toFixed(2));
+}
+tick();setInterval(tick,1000);
+
+/* ---------- 行程資料 ---------- */
+var TAG={plane:["飛機","t-plane"],train:["電車","t-train"],car:["自駕","t-car"],bus:["巴士","t-bus"],walk:["步行","t-walk"],hotel:["住宿","t-hotel"],rest:["休息站","t-rest"],food:["美食","t-food"],taxi:["計程車","t-bus"]};
+var DAYS=[
+{d:"2/16",w:"二",title:"高雄 → 東京",sub:"抵達成田，Skyliner 刷臉 → 日暮里 → 山手線到新宿",ill:"plane",wx:{n:"東京・新宿",lat:35.69,lon:139.70,ref:"往年 2 月東京：最高約 10°C、最低約 2°C（約略）"},
+ map:{"W": 400, "H": 360, "zones": [[6, 40, 150, 314, "#ECEFEA", "台灣"], [166, 40, 228, 314, "#F3EFE7", "日本"]], "segs": [["M78.0 262.0 Q136.6 84.1 322.0 110.0", "fly", "#7FA3C8"], ["M322.0 110.0 Q315.3 207.8 238.0 268.0", "dash", "#8A5BB0"], ["M322.0 110.0 Q294.6 157.7 286.0 212.0", "rail", "#3F5A80"], ["M286.0 212.0 Q268.1 245.2 238.0 268.0", "rail", "#6BAF4A"], ["M238.0 268.0 Q218.0 286.6 208.0 312.0", "walk", "#D08A3C"]], "nodes": [[78, 262, "n", "1", [78, 290, "middle"], "高雄小港機場", "14:00 GK018 起飛"], [322, 110, "n", "2", [336, 106, "start"], "成田 T3", "18:30 抵達"], [286, 212, "n", "3", [300, 217, "start"], "日暮里", "轉 JR 山手線"], [238, 268, "n", "4", [252, 273, "start"], "新宿站 東口", ""], [208, 312, "home", "家", [224, 317, "start"], "APA 新宿歌舞伎町", "21:00 入住"]], "notes": [[200, 26, "✈ GK018 飛行約 3.5 小時", "middle"], [78, 336, "日本比台灣快 1 小時", "middle"]], "legend": [["1-2", "fly", "#7FA3C8", "捷星 GK018 14:00→18:30（日本）"], ["2-3", "rail", "#3F5A80", "Skyliner 刷臉，約 40 分"], ["3-4", "rail", "#6BAF4A", "JR 山手線，約 25 分"], ["4-家", "walk", "#D08A3C", "走路約 10 分"], ["備案", "dash", "#8A5BB0", "N'EX 直達新宿（看排隊決定）"]], "cap": "示意圖，不照比例。"},
+ route:"https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent("成田空港 第3ターミナル")+"&destination="+encodeURIComponent("東京都新宿区歌舞伎町1-20-2")+"&waypoints="+encodeURIComponent("日暮里駅")+"&travelmode=transit",
+ items:[
+  {t:"14:00",n:"高雄小港機場 起飛",tg:["plane"],note:"捷星 GK018，台灣時間"},
+  {t:"18:30",n:"成田機場 第 3 航廈 抵達",tg:["plane"],star:1,q:"成田空港 第3ターミナル",note:"出關後走到第 2 航廈的「空港第2ビル駅」，約 10–15 分鐘"},
+  {t:"19:30",n:"Skyliner 刷臉乘車 → 日暮里",tg:["train"],star:1,q:"空港第2ビル駅",note:"Face Check in Go：搭最近一班 Skyliner，約 40 分鐘（時間依出關而定）\n1/17 起（乘車日前 30 天）在 Skyliner e-ticket 網站購買、登錄臉部，換票前可免費退\n備案：N'EX 成田特快直達新宿，當天買即可\n刷臉後閘門印出全部人數的票，同行者跟著代表人進站\n車票留到下車"},
+  {t:"備案",n:"N'EX 成田特急 → 新宿（現場看排隊決定）",tg:["train"],link:"https://www.eki-net.com/",note:"Skyliner 排隊太久就改搭，直達新宿不用轉車\n在 eki-net（JR-EAST Train Reservation）「從車站搜尋」：\n出發站：NARITA APT TERMINAL2・3（空港第 2 航廈站）\n到達站：SHINJUKU\n乘車日 2/16，時間選「出發」填出關後的時間，大人 2 位\n第 3 航廈沒有車站，走到第 2 航廈搭車（約 10–15 分鐘）\n已買的 Skyliner 票還沒換票前可以免費退"},
+  {t:"20:15",n:"日暮里 轉 JR 山手線",tg:["walk","train"],q:"日暮里駅",note:"刷臉的票要從有人的窗口出京成閘門\n跟著「JR 線のりかえ」指標，站內約 5–10 分鐘，有電梯\n山手線搭「往池袋・新宿」方向（外回り），約 25 分鐘\nJR 段刷 Suica，或在日暮里另買車票"},
+  {t:"20:45",n:"新宿站 東口",tg:["walk"],q:"新宿駅 東口",note:"往歌舞伎町方向"},
+  {t:"21:00",n:"APA 新宿歌舞伎町塔樓 入住",tg:["walk","hotel"],q:"東京都新宿区歌舞伎町1-20-2",note:"新宿站走路約 10 分鐘｜24:00 前入住"}
+ ]},
+{d:"2/17",w:"三",title:"東京市區・挑婚紗",sub:"明治神宮 → 婚紗 → SHIBUYA SKY",ill:"city",wx:{n:"東京・澀谷",lat:35.66,lon:139.70,ref:"往年 2 月東京：最高約 10°C、最低約 2°C（約略）"},
+ map:{"W": 400, "H": 340, "blobs": [[96, 140, 30, 22, ""]], "rivers": ["M372 10 Q350 120 380 200 Q395 260 360 330"], "segs": [["M170.0 62.0 Q123.1 111.5 108.0 178.0", "rail", "#6BAF4A"], ["M108.0 178.0 Q136.8 186.7 160.0 206.0", "walk", "#4F9A55"], ["M160.0 206.0 Q210.4 110.0 318.0 96.0", "rail", "#E39A2E"], ["M318.0 96.0 Q169.5 141.5 118.0 288.0", "rail", "#E39A2E"], ["M118.0 288.0 Q85.5 161.5 170.0 62.0", "dash", "#6BAF4A"]], "nodes": [[170, 62, "home", "家", [186, 67, "start"], "APA 新宿歌舞伎町", "08:30 出發"], [108, 178, "n", "1", [94, 170, "end"], "明治神宮", "09:00 原宿站"], [160, 206, "n", "2", [174, 211, "start"], "竹下通・表參道", "10:30 逛街・午餐"], [318, 96, "n", "3", [318, 124, "middle"], "MUSEWOOD 婚紗", "14:00 田原町站"], [118, 288, "n", "4", [132, 293, "start"], "SHIBUYA SKY", "16:40 入場・夕陽夜景"]], "water": [[372, 240, "隅田川", ""]], "north": [24, 322], "legend": [["家-1", "rail", "#6BAF4A", "JR 山手線 新宿→原宿，約 5 分"], ["1-2", "walk", "#4F9A55", "走路逛原宿、表參道"], ["2-3", "rail", "#E39A2E", "銀座線 表參道→田原町，約 30 分"], ["3-4", "rail", "#E39A2E", "銀座線 田原町→澀谷，直達約 30 分"], ["4-家", "dash", "#6BAF4A", "晚餐後 JR 回新宿"]], "cap": "示意圖，大約位置，不照比例。"},
+ route:"https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent("東京都新宿区歌舞伎町1-20-2")+"&destination="+encodeURIComponent("SHIBUYA SKY")+"&waypoints="+encodeURIComponent("明治神宮|竹下通り|東京都台東区松が谷3-1-1")+"&travelmode=transit",
+ items:[
+  {t:"08:30",n:"新宿 → JR 山手線到原宿",tg:["train"],q:"原宿駅",note:"新宿到原宿 1 站、約 5 分鐘"},
+  {t:"09:00",n:"明治神宮",tg:["walk"],star:1,q:"明治神宮",note:"早上人少、參道安靜，約 1.5 小時\n從原宿站旁的南參道進去"},
+  {t:"10:30",n:"原宿竹下通",tg:["walk"],q:"竹下通り",note:"很多店 10:00–11:00 才開門"},
+  {t:"11:30",n:"原宿／表參道 午餐",tg:["food"]},
+  {t:"13:00",n:"表參道站 → 銀座線到田原町",tg:["train"],note:"約 30 分鐘，再走路約 10 分鐘到婚紗店"},
+  {t:"14:00",n:"MUSEWOOD WEDDING 挑婚紗",tg:["walk"],star:1,q:"東京都台東区松が谷3-1-1",note:"台東區松が谷 3-1-1 13METS 八番館 5F\n已跟店家確定 14:00，約 2 小時"},
+  {t:"16:05",n:"田原町站 → 銀座線直達澀谷",tg:["train"],note:"約 30 分鐘"},
+  {t:"16:45",n:"SHIBUYA SKY 夕陽與夜景",tg:["walk"],star:1,q:"SHIBUYA SKY",note:"入場時段 16:40（每 20 分鐘一梯次，要在 16:40–17:00 入場）\n日落約 17:25，入場後可待到閉館看夕陽和夜景\n預約：官網（Webket）或 Klook、KKday\n開賣：入場日 2 週前日本 00:00 → 台灣 2/2 23:00，日落前的時段很快賣完，要準時搶\n網路票價：15:00 後入場 ¥3,400/人（現場 ¥3,700）；14:59 前 ¥2,700（現場 ¥3,000）"},
+  {t:"晚上",n:"澀谷晚餐 → 回新宿",tg:["food","train"]}
+ ]},
+{d:"2/18",w:"四",title:"新宿 → 河口湖",sub:"06:45 高速巴士＋開始自駕",ill:"pagoda",drive:1,wx:{n:"河口湖",lat:35.50,lon:138.76,ref:"往年 2 月河口湖：最高約 5°C、最低約 -6°C（約略）"},
+ map:{"W": 400, "H": 372, "hills": [[54, 40, 26], [300, 30, 30], [250, 58, 20], [300, 212, 26], [205, 238, 18], [380, 150, 22]], "lakes": ["M-70.3 139.2 Q-70.3 120.9 -43.2 117.6 Q-16.2 114.3 10.8 107.7 Q37.8 101.0 64.8 97.7 Q91.9 94.4 118.9 94.1 Q145.9 93.7 164.9 99.7 Q183.8 105.7 200.0 123.2 Q216.2 140.8 232.4 155.8 Q248.6 170.7 256.8 182.3 Q264.9 194.0 256.8 201.6 Q248.6 209.2 227.0 204.9 Q205.4 200.6 183.8 202.2 Q162.2 203.9 145.9 193.9 Q129.7 184.0 110.8 174.1 Q91.9 164.1 64.8 157.4 Q37.8 150.8 10.8 145.8 Q-16.2 140.8 -43.2 149.1 Q-70.3 157.4 -70.3 139.2Z"], "water": [[178, 150, "河口湖", "Lake Kawaguchi"]], "fuji": [64, 318, "富士山", "往南南西約 15 公里"], "segs": [["M162.2 261.0 Q260.0 300.0 355.7 300.9", "car", "#B5473A"], ["M355.7 300.9 C315.7 284.9 335.7 272.9 329.7 294.9 C341.7 308.9 365.7 314.9 355.7 300.9", "walk", "#4F9A55"], ["M355.7 300.9 Q362.0 272.0 342.7 241.8", "car", "#B5473A"], ["M342.7 241.8 C340.7 207.8 360.7 195.8 354.7 217.8 C366.7 231.8 352.7 255.8 342.7 241.8", "walk", "#D08A3C"], ["M342.7 241.8 Q300.0 120.0 199.5 44.6", "dash", "#B5473A"], ["M199.5 44.6 Q120.0 8.0 42.2 98.3", "car", "#B5473A"], ["M42.2 98.3 Q86.0 84.0 128.6 83.1", "car", "#B5473A"]], "nodes": [[162.2, 261.0, "n", "1", [148.2, 265.0, "end"], "河口湖站・Lawson", "08:30 巴士到・09:00 取車"], [355.7, 300.9, "n", "2", [343.7, 324.9, "end"], "本町通り商店街", "停市營停車場"], [342.7, 241.8, "n", "3", [326.7, 239.8, "end"], "新倉山・五重塔", "398 階・附近吃吉田烏龍麵"], [199.5, 44.6, "n", "4", [213.5, 49.6, "start"], "河口淺間神社", "13:00"], [42.2, 98.3, "n", "5", [30, 124, "start"], "大石公園", "13:50・湖邊看富士山"], [128.6, 83.1, "home", "家", [143.6, 82.1, "start"], "秀峰閣湖月", "15:00 入住"]], "north": [382, 22], "scale": [22, 360, 59.6, "1 公里"], "legend": [["新宿-1", "rail", "#6B7F8C", "高速巴士 06:45→08:30（圖外）"], ["1-2", "car", "#B5473A", "開車約 15 分"], ["2", "walk", "#4F9A55", "商店街散步拍照"], ["2-3", "car", "#B5473A", "開車約 5 分"], ["3", "walk", "#D08A3C", "爬 398 階上五重塔"], ["3-4", "dash", "#B5473A", "開車約 25 分（先吃午餐）"], ["4-5-家", "car", "#B5473A", "開車各約 10 分"], ["參考", "walk", "#9AA7AE", "湖月附近有 7-Eleven 河口湖美術館通店"]], "cap": "依真實經緯度與比例繪製，北方朝上。湖岸、道路是大約位置。"},
+ route:"https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent("河口湖駅")+"&destination="+encodeURIComponent("山梨県南都留郡富士河口湖町河口2312")+"&waypoints="+encodeURIComponent("富士吉田市営本町通り駐車場|新倉山浅間公園 駐車場|河口浅間神社|大石公園 富士河口湖町")+"&travelmode=driving",
+ items:[
+  {t:"06:20",n:"退房 → 走到 Busta 新宿",tg:["walk"],q:"バスタ新宿",note:"新宿站南口 4 樓，走路約 15 分鐘"},
+  {t:"06:45",n:"06:45 高速巴士 Busta 新宿 → 河口湖站",tg:["bus"],star:1,q:"バスタ新宿",note:"Busta 新宿 06:45 發車 → 約 08:30 到河口湖站（車程約 1 小時 45 分）\n確認是到「河口湖站」的班次；大行李放巴士下方行李艙\n坐進行方向右側（前排更好），大月之後看得到富士山\n1/18 預約（約前 1 個月開放）\n備案：富士回遊 3 號 新宿 07:30 → 河口湖 09:28"},
+  {t:"08:35",n:"走路到河口湖站前 Lawson 拍照",tg:["walk"],star:1,q:"ローソン 河口湖駅前店",mc:"161 272 890*45",note:"站前走路約 3–5 分鐘，帶著行李\n注意來車、不要擋住店門口\n順便看天氣：天空很乾淨但雲在變多的話，可以改成先上五重塔"},
+  {t:"09:00",n:"Nippon Rent-A-Car 河口湖店 取車",tg:["walk","car"],star:1,link:"https://maps.app.goo.gl/WCtQE2AD5LmauuseA",tel:"050-1712-2693",note:"河口湖站出口右轉約 3 分鐘\n訂單時間 09:30，不另外改；門市 08:00 開門，09:00 直接到店取車"},
+  {t:"09:20",n:"停車｜富士吉田市営本町通り駐車場",tg:["car"],q:"富士吉田市営本町通り駐車場",park:"富士吉田市営本町通り駐車場",mc:"161 246 625*26",note:"車不開進商店街，停這裡走路逛\n收費與開放時間以現場告示為準"},
+  {t:"09:25",n:"下吉田本町通り商店街",tg:["walk"],star:1,q:"富士吉田 本町二丁目交差点",note:"一早人車少，好拍商店街盡頭的富士山\n在人行道或斑馬線旁拍，不要站到馬路上"},
+  {t:"10:15",n:"停車｜新倉山淺間公園停車場",tg:["car"],q:"新倉山浅間公園 駐車場",park:"新倉山浅間公園 駐車場",mc:"161 276 578*18",note:"開車約 5 分鐘"},
+  {t:"10:25",n:"新倉山淺間公園 五重塔",tg:["walk"],star:1,q:"新倉山浅間公園",note:"爬約 400 階到展望台，拍五重塔＋富士山"},
+  {t:"11:30",n:"吉田烏龍麵 午餐",tg:["car","food"],q:"吉田のうどん 下吉田",note:"很多店下午 2 點左右就打烊"},
+  {t:"13:00",n:"河口淺間神社",tg:["car"],q:"河口浅間神社",park:"河口浅間神社 駐車場",mc:"161 393 158*15",note:"天空の鳥居看體力決定"},
+  {t:"13:50",n:"大石公園",tg:["car","walk"],q:"大石公園 富士河口湖町",park:"大石公園 駐車場",mc:"59 089 387*43",note:"湖邊步道正對富士山，2 月沒有花海，但空氣乾淨常拍得很清楚\n旁邊「河口湖自然生活館」可休息、買伴手禮\n湖邊風大，穿暖一點\nMapcode 開頭跟其他點不同，輸入後確認導航顯示大石公園"},
+  {t:"15:00",n:"秀峰閣湖月 入住",tg:["car","hotel"],star:1,q:"山梨県南都留郡富士河口湖町河口2312",tel:"0555-76-8888",mc:"161 361 563*34",note:"含晚餐（房間用餐）與早餐｜泡湯看富士山"},
+  {t:"參考",n:"7-Eleven 河口湖美術館通店（附近便利商店）",tg:["car"],q:"セブンイレブン 河口湖美術館通り店",park:"セブンイレブン 河口湖美術館通り店",mc:"161 362 176*61",note:"セブンイレブン 河口湖美術館通り店｜河口 2801-1｜24 小時，有停車場\n要買東西的話，建議從大石公園過來、入住前順路停，天黑後不開車"}
+ ]},
+{d:"2/19",w:"五",title:"河口湖 → 御殿場 → 富士宮",sub:"逆富士・Outlet・夢之大橋",ill:"lake",drive:1,wx:{n:"富士宮",lat:35.22,lon:138.62,ref:"往年 2 月富士宮：最高約 11°C、最低約 0°C（約略）"},
+ map:{"W": 400, "H": 360, "lakes": ["M74.0 62.0 a46.0 13.0 0 1 0 92.0 0 a46.0 13.0 0 1 0 -92.0 0Z", "M265.0 132.0 a40.0 12.0 0 1 0 80.0 0 a40.0 12.0 0 1 0 -80.0 0Z"], "water": [[96, 88, "河口湖", ""], [318, 158, "山中湖", ""]], "fuji": [205, 190, "富士山", "", "middle"], "hills": [[355, 45, 24], [30, 140, 20]], "segs": [["M120.0 46.0 Q221.1 54.1 300.0 118.0", "car", "#B5473A"], ["M300.0 118.0 Q337.0 172.7 356.0 236.0", "car", "#B5473A"], ["M356.0 236.0 Q316.9 315.1 230.0 330.0", "dash", "#B5473A"], ["M230.0 330.0 Q142.7 339.1 70.0 290.0", "car", "#B5473A"], ["M70.0 290.0 Q61.9 260.9 40.0 240.0", "walk", "#D08A3C"], ["M40.0 240.0 Q80.9 231.0 120.0 246.0", "walk", "#D08A3C"], ["M120.0 246.0 Q100.3 274.0 70.0 290.0", "walk", "#D08A3C"]], "nodes": [[120, 46, "home", "家", [136, 40, "start"], "秀峰閣湖月", "06:15 逆富士・10:30 退房"], [300, 118, "n", "1", [300, 88, "middle"], "長池親水公園", "11:00 山中湖北岸"], [356, 236, "n", "2", [394, 264, "end"], "御殿場 Outlet", "11:55–14:00"], [230, 330, "n", "3", [244, 335, "start"], "富士山夢之大橋", "14:40"], [70, 290, "home", "家", [86, 294, "start"], "富士宮富士急酒店", "15:35 入住"], [40, 240, "n", "4", [24, 208, "start"], "世界遺產中心", "15:45"], [120, 246, "n", "5", [134, 244, "start"], "淺間大社・お宮横丁", "16:50・晚餐"]], "north": [382, 330], "legend": [["家-1", "car", "#B5473A", "經山中湖北岸，約 30 分"], ["1-2", "car", "#B5473A", "約 40 分"], ["2-3", "dash", "#B5473A", "走東名高速，約 40 分"], ["3-家", "car", "#B5473A", "約 30 分"], ["家-4-5", "walk", "#D08A3C", "走路逛富士宮市區"]], "cap": "示意圖，大約位置，不照比例。"},
+ route:"https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent("山梨県南都留郡富士河口湖町河口2312")+"&destination="+encodeURIComponent("静岡県富士宮市中央町15-18")+"&waypoints="+encodeURIComponent("長池親水公園|御殿場プレミアム・アウトレット|富士山夢の大橋")+"&travelmode=driving",
+ items:[
+  {t:"06:15",n:"湖月 看日出、逆富士",tg:["hotel"],star:1,note:"無風、晴天時湖面才有倒影"},
+  {t:"10:30",n:"退房出發",tg:["car"]},
+  {t:"11:00",n:"山中湖北岸・長池親水公園",tg:["car"],star:1,q:"長池親水公園",park:"長池親水公園 駐車場",mc:"161 014 804*57",note:"湖面配富士山，停約 20 分鐘\n之後翻籠坂峠，冬天可能積雪"},
+  {t:"11:55",n:"御殿場 Premium Outlets",tg:["car","food"],star:1,q:"御殿場プレミアム・アウトレット",park:"御殿場プレミアム・アウトレット 駐車場",mc:"50 806 427*15",note:"午餐＋購物，星期五人較少"},
+  {t:"14:00",n:"出發｜走東名高速",tg:["car"],note:"導航選東名高速，避開國道 469 號山路"},
+  {t:"14:40",n:"富士山夢之大橋",tg:["car"],star:1,q:"富士山夢の大橋",park:"富士山夢の大橋 駐車場",mc:"72 231 615*42",note:"橋下約 17 個車位｜階梯南側、橋上人行道最好拍\n雲多可以跳過"},
+  {t:"15:35",n:"富士宮富士急酒店 入住",tg:["car","hotel"],q:"静岡県富士宮市中央町15-18",mc:"72 494 247*67",note:"含早餐｜停車費入住時確認"},
+  {t:"15:45",n:"靜岡縣富士山世界遺產中心",tg:["walk"],star:1,q:"静岡県富士山世界遺産センター",note:"開到 17:00｜門票 ¥300"},
+  {t:"16:50",n:"富士山本宮淺間大社・湧玉池",tg:["walk"],q:"富士山本宮浅間大社"},
+  {t:"17:30",n:"お宮横丁 富士宮炒麵",tg:["walk","food"],q:"お宮横丁 富士宮",note:"店家可能早打烊，早點去"}
+ ]},
+{d:"2/20",w:"六",title:"富士宮 → 諏訪 → 松本",sub:"本栖湖・諏訪湖・松本城",ill:"castle",drive:1,wx:{n:"松本",lat:36.24,lon:137.97,ref:"往年 2 月松本：最高約 6°C、最低約 -6°C（約略）"},
+ map:{"W": 400, "H": 372, "lakes": ["M226.0 276.0 a14.0 9.0 0 1 0 28.0 0 a14.0 9.0 0 1 0 -28.0 0Z", "M276.0 240.0 a10.0 6.0 0 1 0 20.0 0 a10.0 6.0 0 1 0 -20.0 0Z", "M128.0 96.0 a32.0 15.0 0 1 0 64.0 0 a32.0 15.0 0 1 0 -64.0 0Z"], "water": [[136, 126, "諏訪湖", ""]], "fuji": [370, 300, "", "", "middle"], "blobs": [[356, 128, 26, 15, "八ヶ岳"]], "hills": [[30, 140, 22], [40, 230, 18]], "segs": [["M330.0 338.0 Q331.6 316.6 318.0 300.0", "car", "#B5473A"], ["M318.0 300.0 Q285.2 276.7 246.0 268.0", "car", "#B5473A"], ["M246.0 268.0 Q261.9 243.1 290.0 234.0", "car", "#B5473A"], ["M290.0 234.0 Q285.0 200.7 262.0 176.0", "dash", "#B5473A"], ["M262.0 176.0 Q225.7 150.3 212.0 108.0", "dash", "#B5473A"], ["M212.0 108.0 Q224.4 89.5 246.0 84.0", "car", "#B5473A"], ["M246.0 84.0 Q217.2 88.8 192.0 74.0", "car", "#B5473A"], ["M192.0 74.0 Q116.0 70.0 60.0 30.0", "dash", "#B5473A"]], "nodes": [[330, 338, "home", "家", [314, 343, "end"], "富士宮（08:30 出發）", ""], [318, 300, "n", "1", [304, 304, "end"], "道の駅朝霧高原", "09:00"], [246, 268, "n", "2", [232, 273, "end"], "本栖湖", "09:40 外圍停留"], [290, 234, "n", "3", [304, 239, "start"], "精進湖", "10:00"], [262, 176, "n", "4", [276, 181, "start"], "雙葉 SA", "11:20 休息 15 分"], [212, 108, "n", "5", [226, 124, "start"], "うな藤 鰻魚午餐", "12:30 諏訪湖畔"], [246, 84, "n", "6", [260, 89, "start"], "立石公園", "13:45 諏訪湖全景"], [192, 74, "n", "7", [178, 70, "end"], "間歇泉中心", "14:15"], [60, 30, "home", "家", [76, 35, "start"], "Celecton 松本", "約 15:35 入住"]], "north": [382, 30], "legend": [["家-1-2-3", "car", "#B5473A", "國道 139 號沿富士五湖北上"], ["3-4", "dash", "#B5473A", "約 1 小時，雙葉 SA 休息 15 分"], ["4-5", "dash", "#B5473A", "中央道到諏訪 IC，約 50 分"], ["5-6-7", "car", "#B5473A", "諏訪湖周邊，各約 10–20 分"], ["7-家", "dash", "#B5473A", "長野道，約 55 分"]], "cap": "示意圖，大約位置，不照比例。"},
+ route:"https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent("静岡県富士宮市中央町15-18")+"&destination="+encodeURIComponent("36.23845446183523,137.96483087520988")+"&waypoints="+encodeURIComponent("道の駅朝霧高原|35.4742868,138.5756294|35.4915180,138.6034214|双葉サービスエリア 下り|5 Chome-5-2 Kogandori, Suwa|立石公園 諏訪|諏訪湖間欠泉センター")+"&travelmode=driving",
+ items:[
+  {t:"07:00",n:"飯店早餐",tg:["food"]},
+  {t:"07:45",n:"富士宮站西口天橋",tg:["walk"],q:"富士宮駅 西口",note:"從飯店走路幾分鐘，拍富士山＋街道同框"},
+  {t:"08:30",n:"退房出發｜國道 139 號",tg:["car"]},
+  {t:"09:00",n:"道の駅朝霧高原",tg:["car","rest"],q:"道の駅朝霧高原",park:"道の駅朝霧高原",mc:"312 296 220*06",note:"休息站｜富士山正前方，牛奶霜淇淋"},
+  {t:"09:40",n:"本栖湖（外圍停留）",tg:["car"],link:"https://maps.app.goo.gl/ZgNg3EAByy5YqRyY9",mc:"312 504 396*01",note:"不開進湖邊，導航到這個點停留一下拍照"},
+  {t:"10:00",n:"精進湖",tg:["car"],star:1,link:"https://maps.app.goo.gl/FVBYS6JjVmaendq38",mc:"312 567 595*72",note:"導航到這個點，車子才開得下去湖邊\n之後走國道 358 號往甲府（山路，可能積雪）"},
+  {t:"11:20",n:"雙葉 SA（下行）休息・加滿油",tg:["car","rest"],star:1,q:"双葉サービスエリア 下り",park:"双葉サービスエリア 下り",mc:"59 631 257*51",note:"休息 15 分鐘（精進湖到諏訪將近 2 小時，中途休息）\n⛽ 一人在 SA 裡的 ENEOS 加滿油、一人去上廁所｜24 小時\n有店員的話說「レギュラー、満タンで」；自助就選レギュラー、満タン\n2/21 在湯田中再加滿一次，2/22 還車前到 ENEOS 栗田加滿\n高速公路上比市區貴一點（評論說每公升可能超過 200 日圓）\n備案：下中央道諏訪 IC 後馬上會經過的 ENEOS EneJet 諏訪インター SS（24 小時自助，比較便宜，要多約 10 分鐘）"},
+  {t:"12:30",n:"うな藤 鰻魚午餐",tg:["car","food"],star:1,q:"5 Chome-5-2 Kogandori, Suwa",tel:"0266-58-0114",mc:"75 178 137*14",note:"諏訪湖畔｜午餐 11:30–13:45 最後點餐（週三公休）｜不能預約，座位少，週六可能要等\n停車場 4 格，滿了停附近投幣式停車場｜可刷卡\n點法：松（數量限定）＋中 ¥6,950；松賣完就中 ×2 ¥7,300"},
+  {t:"13:45",n:"立石公園（諏訪湖全景）",tg:["car"],star:1,q:"立石公園 諏訪",park:"立石公園 駐車場",mc:"218 780 004*20",note:"從上諏訪開車約 10 分鐘｜俯瞰諏訪湖和市區，天氣好看得到北阿爾卑斯山\n停留約 20 分鐘"},
+  {t:"14:15",n:"諏訪湖畔（間歇泉中心一帶）",tg:["car","walk"],q:"諏訪湖間欠泉センター",park:"諏訪湖間欠泉センター 駐車場",mc:"75 208 025*01",note:"湖邊散步約 20 分鐘，冬天湖面可能結冰\n14:40 出發，從諏訪 IC 上長野道往松本"},
+  {t:"約 15:35",n:"The Celecton 松本 入住",tg:["car","hotel"],q:"36.23845446183523,137.96483087520988",tel:"0263-88-0202",mc:"75 851 214*61",note:"停車 ¥1,000／晚，33 格先到先停"},
+  {t:"15:45",n:"松本城",tg:["walk"],star:1,q:"松本城",note:"走路 3 分鐘｜冬季最後入場約 16:30，來得及進天守\n2/21 早上 07:30 還會再來拍雪景"},
+  {t:"17:00",n:"中町通り・繩手通り",tg:["walk"],q:"中町通り 松本"},
+  {t:"18:00",n:"晚餐：山賊燒或信州蕎麥麵",tg:["food"]}
+ ]},
+{d:"2/21",w:"日",title:"松本 → 長野 → 澀溫泉",sub:"善光寺・小布施・溫泉旅館",ill:"temple",drive:1,wx:{n:"湯田中澀溫泉",lat:36.73,lon:138.43,ref:"長野市 2024–2026 年 2/21 實測：最高 4～13°C、最低 -6～2°C；澀溫泉約再低 2°C"},
+ map:{"W": 400, "H": 360, "rivers": ["M110 360 Q150 280 190 220 Q240 150 300 130 Q350 110 398 120"], "water": [[240, 184, "千曲川", ""]], "hills": [[32, 220, 24], [40, 140, 20], [90, 90, 18], [372, 170, 22], [330, 220, 18]], "segs": [["M62.0 326.0 Q88.9 267.5 138.0 226.0", "car", "#B5473A"], ["M138.0 226.0 Q160.9 177.2 200.0 140.0", "car", "#B5473A"], ["M200.0 140.0 Q233.3 112.9 276.0 108.0", "car", "#B5473A"], ["M276.0 108.0 Q299.1 86.0 330.0 78.0", "car", "#B5473A"], ["M330.0 78.0 Q346.1 56.4 370.0 44.0", "car", "#B5473A"]], "nodes": [[62, 326, "home", "家", [78, 331, "start"], "Celecton 松本", "07:30 松本城雪景・09:00 出發"], [138, 226, "n", "1", [152, 231, "start"], "姨捨 SA", "09:45 善光寺平夜景名所"], [200, 140, "n", "2", [192, 116, "end"], "善光寺", "10:35・午餐蕎麥麵"], [276, 108, "n", "3", [276, 136, "middle"], "小布施", "13:00 栗子甜點"], [330, 78, "n", "4", [316, 76, "end"], "湯田中 Lawson・加油", "14:40–15:05"], [370, 44, "home", "家", [354, 30, "end"], "山崎屋（澀溫泉）", "15:10 入住"]], "north": [24, 30], "legend": [["家-1", "car", "#B5473A", "長野道，約 45 分"], ["1-2", "car", "#B5473A", "約 40 分"], ["2-3", "car", "#B5473A", "約 30 分"], ["3-4-家", "car", "#B5473A", "約 25 分，Lawson 補給、湯田中加滿油後到旅館"]], "cap": "示意圖，大約位置，不照比例。溫泉街沒有便利商店。"},
+ route:"https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent("36.23845446183523,137.96483087520988")+"&destination="+encodeURIComponent("長野県下高井郡山ノ内町平穏2299")+"&waypoints="+encodeURIComponent("姨捨サービスエリア 下り|善光寺 長野|北斎館|ローソン 湯田中駅前店")+"&travelmode=driving",
+ items:[
+  {t:"07:30",n:"松本城雪景",tg:["walk"],q:"松本城",note:"城外拍照免費"},
+  {t:"08:15",n:"早餐",tg:["food"],note:"飯店沒附早餐，附近咖啡店或便利商店"},
+  {t:"09:00",n:"退房出發",tg:["car"]},
+  {t:"09:45",n:"姨捨 SA（下行）",tg:["car","rest"],q:"姨捨サービスエリア 下り",park:"姨捨サービスエリア 下り",mc:"177 581 204*75",note:"休息站｜俯瞰善光寺平"},
+  {t:"10:35",n:"善光寺",tg:["car"],star:1,q:"善光寺 長野",park:"善光寺 駐車場",mc:"54 277 205*60",note:"仲見世通 → 山門 → 本堂，戒壇巡要另外買票"},
+  {t:"12:00",n:"午餐：信州蕎麥麵／おやき",tg:["food"]},
+  {t:"13:00",n:"小布施",tg:["car","food"],star:1,q:"北斎館",park:"小布施町営駐車場",mc:"54 413 134*63",note:"北齋館・栗之小徑・栗子甜點"},
+  {t:"14:40",n:"Lawson 湯田中站前店 補給",tg:["car"],q:"ローソン 湯田中駅前店",park:"ローソン 湯田中駅前店",mc:"341 845 486*27",note:"澀溫泉街沒有便利商店，在這裡買齊晚上飲料、零食，和隔天地獄谷要帶的水、暖暖包\n24 小時營業\n溫泉街的竹內商店週日公休；たまりや酒店週日 16:00–19:00 有開，只收現金"},
+  {t:"14:55",n:"apollostation 湯田中 SS 加滿油",tg:["car"],star:1,q:"長野県下高井郡山ノ内町平穏2926-36",tel:"0269-33-4568",mc:"341 845 194*52",note:"山ノ內町平穩 2926-36（湯田中站附近）｜週日 08:00–18:00\n有人服務，評價很好：跟店員說「レギュラー、満タンで」，收據留著\n加滿後 2/22 滿油上戶隱，還車前再到 ENEOS 栗田加滿\n備用：JA 須高 志賀高原 SS（平穩 4127-13，週日 07:30–19:00，自助和有人服務都有）"},
+  {t:"15:10",n:"山崎屋旅館 入住",tg:["car","hotel"],star:1,q:"長野県下高井郡山ノ内町平穏2299",tel:"0269-33-3025",mc:"341 816 773*00",note:"白樺の間｜一泊二食＋加點料理\n免費停車（河邊約 10 格）｜問外湯能不能泡、早餐能否 07:00"}
+ ]},
+{d:"2/22",w:"一",title:"地獄谷 → 戶隱",sub:"雪猴・自駕上戶隱・うずら家蕎麥麵・奧社參道",ill:"monkey",drive:1,wx:{n:"長野・戶隱",lat:36.70,lon:138.10,ref:"長野市 2024–2026 年 2/22 實測：最高 1～20°C、最低 -5～0°C；戶隱山區更冷"},
+ map:{"W": 400, "H": 360, "north": [382, 26], "hills": [[150, 48, 22], [214, 96, 16], [28, 210, 18], [320, 36, 16], [120, 236, 14]], "segs": [["M352.0 84.0 Q369.4 106.4 376.0 134.0", "car", "#B5473A"], ["M376.0 134.0 C358.0 146.0 378.0 134.0 372.0 156.0 C384.0 170.0 386.0 148.0 376.0 134.0", "walk", "#4F9A55"], ["M376.0 134.0 Q347.3 185.3 296.0 214.0", "car", "#B5473A"], ["M296.0 214.0 Q256.6 230.8 214.0 236.0", "car", "#B5473A"], ["M214.0 236.0 Q186.6 211.4 176.0 176.0", "car", "#B5473A"], ["M176.0 176.0 Q131.6 156.7 96.0 124.0", "car", "#B5473A"], ["M96.0 124.0 Q75.0 103.3 64.0 76.0", "car", "#B5473A"], ["M64.0 76.0 Q46.1 61.5 38.0 40.0", "walk", "#4A73B5"], ["M64.0 76.0 Q66.3 113.2 84.0 146.0", "car", "#8A5BB0"], ["M84.0 146.0 Q126.9 170.5 176.0 176.0", "car", "#8A5BB0"], ["M176.0 176.0 Q179.2 249.4 236.0 296.0", "car", "#8A5BB0"], ["M236.0 296.0 Q213.0 300.1 198.0 318.0", "car", "#8A5BB0"], ["M198.0 318.0 Q224.2 320.7 244.0 338.0", "walk", "#D08A3C"]], "nodes": [[352, 84, "home", "家", [336, 89, "end"], "山崎屋（出發）", "08:15"], [376, 134, "n", "1", [362, 139, "end"], "地獄谷野猿公苑", "09:00–10:00"], [296, 214, "ref", "", [286, 202, "end"], "須坂長野東 IC", "下交流道"], [214, 236, "n", "2", [226, 258, "start"], "7-Eleven 浅川", "11:30 休息"], [176, 176, "ref", "", [188, 164, "start"], "浅川ループライン", "不走七曲り"], [96, 124, "n", "3", [110, 126, "start"], "戶隱中社・うずら家", "12:20 午餐"], [64, 76, "n", "4", [78, 78, "start"], "奧社入口", "13:20 參道・15:00 下山"], [38, 40, "ref", "", [50, 42, "start"], "隨神門", "14:20 前折返"], [236, 296, "n", "5", [250, 298, "start"], "ENEOS 栗田", "16:00 加油"], [198, 318, "n", "6", [184, 320, "end"], "長野站東口 還車", "16:15"], [244, 338, "home", "家", [260, 340, "start"], "Livemax 長野", "16:45 入住"]], "legend": [["家-1", "car", "#B5473A", "開到上林溫泉停車場，約 20 分"], ["1", "walk", "#4F9A55", "雪地步道單程約 35 分，10:00 離開"], ["1-2", "car", "#B5473A", "上信越道，須坂長野東 IC 下，約 55 分"], ["2-3", "car", "#B5473A", "浅川ループライン＋バードライン，約 35 分"], ["3-4", "car", "#B5473A", "中社 → 奧社入口，約 5 分"], ["4", "walk", "#4A73B5", "參道到隨神門，往返約 1.5 小時"], ["4-5-6", "car", "#8A5BB0", "15:00 下山，同一條路回長野，約 1 小時"], ["6-家", "walk", "#D08A3C", "推行李到 Livemax，約 5–7 分"]], "cap": "示意圖，大約位置，不照比例。上下山都走浅川ループライン，不走七曲り。"},
+ items:[
+  {t:"07:00",n:"旅館早餐",tg:["food"]},
+  {t:"08:15",n:"出發 → 上林溫泉停車場",tg:["car"],q:"上林温泉",park:"地獄谷野猿公苑 駐車場 上林温泉",mc:"341 818 200*20",note:"步道約 30 分鐘，記得穿冰爪"},
+  {t:"09:00",n:"地獄谷野猿公苑",tg:["walk"],star:1,q:"地獄谷野猿公苑",tel:"0269-33-4379",note:"門票要事先在 Webket 買，09:00 時段\n❗ 10:00 離開"},
+  {t:"10:00",n:"走回停車場",tg:["walk"],note:"雪地步道約 35 分鐘"},
+  {t:"10:35",n:"開車上山（導航：上山）",tg:["car"],star:1,link:"https://www.google.com/maps/dir/?api=1&origin=%E5%9C%B0%E7%8D%84%E8%B0%B7%E9%87%8E%E7%8C%BF%E5%85%AC%E8%8B%91%20%E7%84%A1%E6%96%99%E9%A7%90%E8%BB%8A%E5%A0%B4&destination=%E6%88%B8%E9%9A%A0%E7%A5%9E%E7%A4%BE%20%E4%B8%AD%E7%A4%BE&travelmode=driving&waypoints=%E9%A0%88%E5%9D%82%E9%95%B7%E9%87%8E%E6%9D%B1IC%7C%E3%82%BB%E3%83%96%E3%83%B3-%E3%82%A4%E3%83%AC%E3%83%96%E3%83%B3%20%E9%95%B7%E9%87%8E%E6%B5%85%E5%B7%9D%E5%BA%97%7C36.71134,138.158753&origin_place_id=ChIJmfzsb4TzHWAR2yF-eGmrfY8&destination_place_id=ChIJqUaopGuF918R6vpw-DMDtyo&waypoint_place_ids=ChIJKab8hwSPHWARGbMVkSgcmm0%7CChIJe097XaeHHWARoLsG5AkaoWE%7CChIJw30wZLsp9l8RdmdZI8RAi5o",note:"導航已設好：須坂長野東 IC 下交流道 → セブン-イレブン 長野浅川店 → スパイラル（浅川ループライン）→ 戶隱中社\n信州中野 IC 上上信越道，ETC 卡先插好\n❗ 不走七曲り：路線預覽如果在善光寺西邊出現一段密集的 Z 字形急彎，就是七曲り，要重新導航"},
+  {t:"11:30",n:"セブン-イレブン 長野浅川店 休息",tg:["rest"],star:1,q:"セブン-イレブン 長野浅川店",tel:"026-244-1107",note:"長野市上松 5-6-20｜24 小時\n去戶隱前最後的便利商店：上廁所、買水和零食（戶隱沒有便利商店）\n備用：往北開會先經過的 ローソン 長野上松三丁目店（上松 3-25-32，24 小時）\n休息約 15 分鐘，11:45 出發"},
+  {t:"11:45",n:"浅川東条左轉 → 浅川ループライン → バードライン",tg:["car"],note:"縣道 506 號，70 號和觀光特急走的同一條山路\n開到底左轉，右手邊是停業的飯綱高原滑雪場，往下接バードライン，再往戶隱方向\n隧道出入口、橋上容易結冰，先減速"},
+  {t:"12:20",n:"うずら家 登記排隊",tg:["food"],star:1,q:"うずら家 戸隠",note:"一到先去寫名字排隊，再去參拜中社\n只收現金｜週三公休（2/22 是週一）｜賣完就打烊\n車停中社停車場（免費）"},
+  {t:"12:20",n:"戶隱神社中社",tg:["walk"],q:"戸隠神社中社",note:"等位子時參拜、拍三本杉，約 20 分鐘"},
+  {t:"12:40",n:"うずら家 午餐",tg:["food"],star:1,q:"うずら家 戸隠",note:"控制在 35 分鐘；吃得比較晚，就從奧社那段扣時間"},
+  {t:"13:15",n:"開車到奧社入口停車場",tg:["car"],q:"戸隠神社奥社入口駐車場",note:"約 2 公里、5 分鐘｜普通車約 ¥600–800"},
+  {t:"13:20",n:"戶隱奧社參道 → 隨神門、杉木林",tg:["walk"],star:1,q:"戸隠神社奥社入口",note:"❗ 最晚 14:20 從隨神門往回走\n停車場往返約 2 公里、1.5 小時，穿冰爪\n冬季閉殿：隨神門之後禁止進入，在遙拜所參拜"},
+  {t:"14:45",n:"回停車場，準備下山",tg:["car"],note:"拆冰爪、上廁所、清掉車頂和車窗的雪、暖車"},
+  {t:"15:00",n:"下山（導航：下山）",tg:["car"],star:1,link:"https://www.google.com/maps/dir/?api=1&origin=%E6%88%B8%E9%9A%A0%E7%A5%9E%E7%A4%BE%20%E5%A5%A5%E7%A4%BE%E5%85%A5%E5%8F%A3%E9%A7%90%E8%BB%8A%E5%A0%B4&destination=%E9%95%B7%E9%87%8E%E7%9C%8C%E9%95%B7%E9%87%8E%E5%B8%82%E4%B8%83%E7%80%AC3-14&travelmode=driving&waypoints=36.711697,138.15839%7CENEOS%20%E9%95%B7%E9%87%8E%E5%B8%82%E6%A0%97%E7%94%B01816&origin_place_id=ChIJMwCI3PYu9l8RaVIIkryUuZ8&waypoint_place_ids=ChIJHbjOXLsp9l8R_QVkO5WBdkI%7CChIJiwjMeoWGHWARhybd8IbDkXg",note:"❗ 15:00 準時下山（不管前面行程怎麼延誤）\n導航已設好：スパイラル（浅川ループライン）→ ENEOS 栗田 → 還車門市，不走七曲り\n下坡用低速檔、多用引擎煞車，不要急踩煞車\n可能和 15:04 的觀光特急同路，跟巴士保持車距\n約 15:40 經過浅川東条進市區"},
+  {t:"16:00",n:"ENEOS 栗田 加滿油",tg:["car"],star:1,q:"ENEOS 長野市栗田1816",tel:"026-226-2454",mc:"54 188 070*16",note:"長野市栗田 1816｜自助，機器有英文｜每天 07:00–21:00\n選「レギュラー」（一般汽油）、「満タン」（加滿），收據留著給還車門市看"},
+  {t:"16:15",n:"長野站東口 還車",tg:["car"],star:1,link:"https://maps.app.goo.gl/PR46LD2Z2RWdAHNh7",tel:"050-1712-2887",mc:"54 188 763*67",note:"訂單是 12:00 還車，取車時跟門市說延到 17:00\n流程約 20 分鐘，約 16:35 完成；16:30 前就不再開車"},
+  {t:"16:45",n:"推行李到 Livemax 入住",tg:["walk", "hotel"],q:"長野県長野市栗田995-1",tel:"026-225-1050",note:"都在東口，走路約 5–7 分鐘｜15:00 起可入住"}
+ ]},
+{d:"2/23",w:"二",title:"長野 → 東京",sub:"不忍池・湯島梅花・淺草・晴空塔・東京鐵塔・日本橋壽喜燒",ill:"tower",holiday:1,wx:{n:"東京・上野",lat:35.71,lon:139.77,ref:"往年 2 月東京：最高約 10°C、最低約 2°C（約略）"},
+ map:{"W": 400, "H": 350, "rivers": ["M332 0 Q318 80 300 150 Q270 250 236 350"], "lakes": ["M92.0 58.0 a16.0 10.0 0 1 0 32.0 0 a16.0 10.0 0 1 0 -32.0 0Z", "M290 350 Q330 300 400 300 L400 350Z"], "blobs": [[96, 200, 34, 24, "皇居"]], "water": [[302, 190, "隅田川", ""], [350, 334, "東京灣", ""]], "segs": [["M158.0 66.0 Q136.3 55.1 112.0 56.0", "walk", "#4F9A55"], ["M112.0 56.0 Q109.4 83.1 92.0 104.0", "walk", "#4F9A55"], ["M92.0 104.0 Q131.5 94.1 168.0 112.0", "walk", "#4F9A55"], ["M168.0 112.0 Q221.0 64.7 292.0 62.0", "rail", "#E39A2E"], ["M292.0 62.0 Q332.1 74.4 362.0 104.0", "walk", "#D08A3C"], ["M362.0 104.0 Q290.1 279.5 104.0 316.0", "rail", "#D9608A"], ["M104.0 316.0 Q83.2 306.6 70.0 288.0", "walk", "#4A73B5"], ["M70.0 288.0 Q106.8 228.7 176.0 220.0", "dash", "#D9608A"], ["M176.0 220.0 Q149.1 145.1 158.0 66.0", "rail", "#E39A2E"]], "nodes": [[158, 66, "home", "家", [174, 60, "start"], "APA 京成上野", "10:45 寄行李"], [112, 56, "n", "1", [98, 50, "end"], "不忍池", "10:50"], [92, 104, "n", "2", [78, 109, "end"], "湯島天滿宮", "11:30 賞梅"], [168, 112, "n", "3", [182, 120, "start"], "阿美橫町", "12:25 午餐"], [292, 62, "n", "4", [292, 90, "middle"], "淺草寺", "13:30"], [362, 104, "n", "5", [362, 132, "end"], "晴空塔", "14:45 Solamachi"], [104, 316, "n", "6", [118, 321, "start"], "芝公園梅林", "16:10 梅花＋東京鐵塔"], [70, 288, "n", "7", [64, 272, "start"], "增上寺・東京鐵塔", "17:30 點燈"], [176, 220, "n", "8", [190, 225, "start"], "日本橋一里", "19:30 壽喜燒"]], "legend": [["家-1-2-3", "walk", "#4F9A55", "上野一帶走路"], ["3-4", "rail", "#E39A2E", "銀座線 上野→淺草，約 5 分"], ["4-5", "walk", "#D08A3C", "過隅田川走路約 20 分"], ["5-6", "rail", "#D9608A", "都營淺草線 押上→大門，直達約 25 分"], ["6-7", "walk", "#4A73B5", "芝公園、增上寺散步"], ["7-8", "dash", "#D9608A", "都營淺草線 大門→日本橋，約 10 分"], ["8-家", "rail", "#E39A2E", "銀座線 三越前→上野，約 10 分"], ["晚上", "walk", "#4F9A55", "上野唐吉訶德、一蘭（宵夜）"]], "cap": "示意圖，大約位置，不照比例。"},
+ route:"https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent("不忍池 弁天堂")+"&destination="+encodeURIComponent("東京都中央区日本橋本町1-1-5")+"&waypoints="+encodeURIComponent("湯島天満宮|アメ横商店街|浅草寺|東京スカイツリー|芝公園|増上寺")+"&travelmode=transit",
+ items:[
+  {t:"09:00",n:"淺間號 長野 → 上野",tg:["train"],star:1,q:"長野駅",note:"約 10:40 到｜11/23 早期予約"},
+  {t:"10:45",n:"京成上野站前 APA 寄放行李",tg:["walk"],q:"東京都台東区上野2-14-26"},
+  {t:"10:50",n:"不忍池・弁天堂",tg:["walk"],q:"不忍池 弁天堂",note:"APA 過馬路就到，沿池邊散步到弁天堂參拜\n冬天荷花已枯，主要看池景、弁天堂和水鳥"},
+  {t:"11:30",n:"湯島天滿宮 賞梅",tg:["walk"],star:1,q:"湯島天満宮",note:"從不忍池南邊走路約 10 分鐘｜梅まつり期間，境內約 300 棵梅樹，以白梅為主\n2/23 是國定假日，人會很多｜免費"},
+  {t:"12:25",n:"阿美橫町 午餐",tg:["walk","food"],q:"アメ横商店街",note:"草莓串、海鮮丼"},
+  {t:"13:30",n:"淺草寺・仲見世通",tg:["train"],star:1,q:"浅草寺",note:"國定假日人多"},
+  {t:"14:45",n:"走到東京晴空塔・Solamachi",tg:["walk"],q:"東京スカイツリー",note:"淺草過隅田川走路約 20 分鐘，沿途拍晴空塔\n逛塔下 Solamachi 商場，不上展望台（晚上看東京鐵塔）"},
+  {t:"15:40",n:"都營淺草線 押上 → 大門（直達）",tg:["train"],q:"押上駅",note:"不用轉車，約 25 分鐘"},
+  {t:"16:10",n:"芝公園梅林",tg:["walk"],star:1,q:"芝公園",note:"梅花＋東京鐵塔同框，趁天還亮先拍（日落約 17:30）"},
+  {t:"17:30",n:"增上寺 → 東京鐵塔點燈",tg:["walk"],q:"増上寺",note:"寺院配點燈東京鐵塔"},
+  {t:"18:30",n:"東京鐵塔夜景、周邊散步",tg:["walk"],q:"東京タワー",note:"多拍一些點燈夜景，不上展望台"},
+  {t:"19:10",n:"都營淺草線 大門 → 日本橋",tg:["train"],q:"大門駅",note:"直達約 10 分鐘，再走約 5 分鐘到店"},
+  {t:"19:30",n:"日本橋一里 黑毛和牛壽喜燒",tg:["food"],star:1,link:"https://maps.app.goo.gl/A3e5uDS8a4rRRgUg8",tel:"+81 70-9216-3445",note:"黒毛和牛とお出汁 日本橋 いちり｜東京都中央区日本橋本町 1-1-5 日本橋 Tn ビル 1F\n每天 11:00–21:00（晚餐 16:00 起）｜每人約 ¥2,000–3,000\n座位少、常排隊，19:30 前到；21:00 打烊，不要拖更晚\n國定假日：出發前看 Instagram（nihonbashi_ichiri）確認有沒有營業\n吃完可以留湯汁煮烏龍麵或雜炊"},
+  {t:"20:45",n:"日本橋夜景散步",tg:["walk"],q:"日本橋 東京",note:"店家走路約 3 分鐘，散步約 15 分鐘"},
+  {t:"21:00",n:"銀座線 三越前 → 上野",tg:["train"],q:"三越前駅",note:"直達約 10 分鐘，不用轉車"},
+  {t:"21:15",n:"上野唐吉訶德 買伴手禮",tg:["walk"],q:"ドン・キホーテ 上野駅前店",note:"最後一個能好好買東西的晚上（2/24 拍婚紗、2/25 一早去機場）\n藥妝、零食、伴手禮一次買齊，回飯店先打包\n營業時間以官網為準"},
+  {t:"宵夜",n:"一蘭 上野 Atre 店",tg:["food"],q:"一蘭 上野アトレ店",note:"24 小時｜在上野站 Atre 裡，離 APA 最近\n單人隔間座位，濃淡、硬度、辣度可以自己調；人多時可能排 30–40 分鐘\n看肚子決定要不要吃\n雨天或太冷備案：下午改去上野公園的東京國立博物館（出發前確認展覽與休館日）"}
+ ]},
+{d:"2/24",w:"三",title:"婚紗拍攝日",sub:"MUSEWOOD 集合 → 山中湖・河口湖",ill:"wedding",wx:{n:"山中湖",lat:35.42,lon:138.87,ref:"往年 2 月山中湖：最高約 4°C、最低約 -8°C（約略）"},
+ map:{"W": 400, "H": 340, "zones": [[6, 120, 190, 214, "#ECEFEA", "山中湖・河口湖"], [214, 30, 180, 304, "#F3EFE7", "東京"]], "lakes": ["M62.0 248.0 a46.0 14.0 0 1 0 92.0 0 a46.0 14.0 0 1 0 -92.0 0Z"], "fuji": [74, 196, "", "", "middle"], "segs": [["M300.0 78.0 Q330.4 88.3 352.0 112.0", "walk", "#D08A3C"], ["M352.0 112.0 Q213.1 132.8 108.0 226.0", "car", "#8A5BB0"], ["M108.0 226.0 Q217.9 269.0 330.0 232.0", "dash", "#8A5BB0"], ["M330.0 232.0 Q342.9 259.6 340.0 290.0", "walk", "#4F9A55"], ["M340.0 290.0 Q270.9 193.3 300.0 78.0", "rail", "#E39A2E"]], "nodes": [[300, 78, "home", "家", [284, 83, "end"], "APA 京成上野", ""], [352, 112, "n", "1", [340, 136, "end"], "MUSEWOOD 集合", "時間待定"], [108, 226, "n", "2", [108, 276, "middle"], "拍婚紗", "白天"], [330, 232, "n", "3", [316, 237, "end"], "東京站丸之內", "紅磚站舍夜景"], [340, 290, "n", "4", [326, 295, "end"], "銀座", "晚餐、逛街"]], "legend": [["家-1", "walk", "#D08A3C", "計程車約 5–10 分"], ["1-2", "car", "#8A5BB0", "婚紗公司包車"], ["2-3", "dash", "#8A5BB0", "包車回東京（送到東京站要先確認）"], ["3-4", "walk", "#4F9A55", "走路約 15 分"], ["4-家", "rail", "#E39A2E", "銀座線 銀座→上野，約 15 分"]], "cap": "示意圖，不照比例。"},
+ route:"https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent("東京都台東区上野2-14-26")+"&destination="+encodeURIComponent("東京都台東区松が谷3-1-1")+"&travelmode=walking",
+ items:[
+  {t:"待定",n:"APA → MUSEWOOD WEDDING 集合",tg:["taxi"],star:1,q:"東京都台東区松が谷3-1-1",note:"計程車約 5–10 分鐘"},
+  {t:"白天",n:"包車 → 山中湖、河口湖拍婚紗",tg:["car"],star:1,note:"集合時間、化妝地點、雨雪備案待確認"},
+  {t:"晚上",n:"東京站丸之內 → 銀座晚餐",tg:["car","walk","food"],q:"東京駅 丸の内駅舎",note:"拍完包車直接送到東京站丸之內（要跟婚紗公司確認能不能送）\n紅磚站舍夜景 → 走路約 15 分鐘到銀座，晚餐、逛街"},
+  {t:"約 21:00",n:"銀座線 銀座 → 上野｜回 APA",tg:["train","hotel"],q:"東京都台東区上野2-14-26",note:"直達不用轉車，約 15 分鐘"}
+ ]},
+{d:"2/25",w:"四",title:"東京 → 高雄",sub:"Skyliner → 成田 T1",ill:"plane",wx:{n:"成田",lat:35.77,lon:140.39,ref:"往年 2 月成田：最高約 10°C、最低約 -1°C（約略）"},
+ map:{"W": 400, "H": 340, "zones": [[6, 40, 150, 294, "#ECEFEA", "台灣"], [166, 40, 228, 294, "#F3EFE7", "日本"]], "segs": [["M250.0 96.0 Q260.8 126.1 282.0 150.0", "walk", "#D08A3C"], ["M282.0 150.0 Q326.3 185.4 352.0 236.0", "rail", "#3F5A80"], ["M352.0 236.0 Q223.7 365.7 78.0 256.0", "fly", "#7FA3C8"]], "nodes": [[250, 96, "home", "家", [266, 101, "start"], "APA 京成上野", "08:15 退房"], [282, 150, "n", "1", [296, 155, "start"], "京成上野站", "08:40 Skyliner"], [352, 236, "n", "2", [352, 264, "middle"], "成田 T1 南翼", "約 09:25 到"], [78, 256, "n", "3", [78, 284, "middle"], "高雄小港機場", "15:45 抵達"]], "notes": [[200, 66, "✈ BR107 12:25 起飛", "middle"]], "legend": [["家-1", "walk", "#D08A3C", "走路約 3 分"], ["1-2", "rail", "#3F5A80", "Skyliner 指定班次，約 45 分"], ["2-3", "fly", "#7FA3C8", "長榮 BR107 12:25→15:45（台灣）"]], "cap": "示意圖，不照比例。"},
+ route:"https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent("京成上野駅")+"&destination="+encodeURIComponent("成田空港 第1ターミナル")+"&travelmode=transit",
+ items:[
+  {t:"08:15",n:"APA 退房",tg:["walk"]},
+  {t:"08:40",n:"Skyliner 京成上野 → 成田機場站",tg:["train"],star:1,q:"京成上野駅",note:"約 09:25 到 T1｜1/26 開放預約（乘車日前 30 天）\n回程訂指定班次和座位，不要用刷臉（可能被排到後面班次）\n在京成上野站窗口或特急券售票機出示訂單取票\n備案：京成本線 Access 特急／特急，不用預約、刷 Suica"},
+  {t:"12:25",n:"長榮 BR107 起飛",tg:["plane"],star:1,q:"成田空港 第1ターミナル",note:"T1 南翼｜15:45 抵達高雄"}
+ ]}
+];
+
+/* ---------- 每日插圖 ---------- */
+var S='stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"';
+function ill(k){
+  var bg='<rect width="84" height="84" fill="#EBF7FC"/>';
+  var snow='<path d="M0 66 Q42 58 84 66 V84 H0Z" fill="#FFFCF6" '+S+'/>';
+  var fuji='<path d="M8 66 L36 30 Q42 24 48 30 L76 66Z" fill="#A8D3E6" '+S+'/><path d="M28 40 L36 30 Q42 24 48 30 L56 40 L50 43 L46 38 L42 43 L38 38 L34 43Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/>';
+  var m={
+   plane:bg+'<g class="float"><path d="M14 46 L66 26 L58 40 L66 54Z" fill="#FFFCF6" '+S+'/><path d="M36 38 L28 22 L36 22 L46 34" fill="#F2A497" '+S+'/></g><circle cx="66" cy="18" r="7" fill="#FEECA6" stroke="#3E3A39" stroke-width="2.5"/>'+snow,
+   city:bg+'<rect x="12" y="32" width="18" height="34" fill="#EADFD2" '+S+'/><rect x="34" y="20" width="18" height="46" fill="#A8D3E6" '+S+'/><rect x="56" y="38" width="16" height="28" fill="#F6D27A" '+S+'/><g fill="#3E3A39"><rect x="38" y="26" width="4" height="4"/><rect x="44" y="26" width="4" height="4"/><rect x="38" y="34" width="4" height="4"/><rect x="44" y="34" width="4" height="4"/></g>'+snow,
+   pagoda:bg+fuji+'<g transform="translate(52 34) scale(.42)"><rect x="22" y="20" width="20" height="70" fill="#F2A497" '+S+'/><g fill="#3E3A39"><path d="M2 32 h60 l-8 -10 h-44z"/><path d="M5 52 h54 l-7 -9 h-40z"/><path d="M8 72 h48 l-6 -9 h-36z"/></g></g>'+snow,
+   lake:bg+fuji+'<path d="M0 66 H84 V84 H0Z" fill="#A8D3E6" '+S+'/><path d="M20 66 L36 80 Q42 84 48 80 L64 66" fill="#EAF4FC" stroke="#3E3A39" stroke-width="2" stroke-dasharray="4 3"/>',
+   castle:bg+'<rect x="22" y="44" width="40" height="22" fill="#FFFCF6" '+S+'/><path d="M16 46 h52 l-10 -10 h-32z" fill="#3E3A39"/><rect x="28" y="28" width="28" height="10" fill="#FFFCF6" '+S+'/><path d="M22 30 h40 l-8 -9 h-24z" fill="#3E3A39"/><rect x="38" y="52" width="8" height="14" fill="#3E3A39"/>'+snow,
+   temple:bg+'<path d="M10 40 h64 l-12 -14 h-40z" fill="#EADFD2" '+S+'/><rect x="18" y="40" width="48" height="26" fill="#F2A497" '+S+'/><rect x="36" y="48" width="12" height="18" fill="#3E3A39"/><path d="M8 40 Q42 30 76 40" fill="none" stroke="#FFFCF6" stroke-width="4"/>'+snow,
+   monkey:bg+'<path d="M0 66 Q42 58 84 66 V84 H0Z" fill="#A8D3E6" '+S+'/><g class="float"><circle cx="42" cy="52" r="16" fill="#EADFD2" '+S+'/><ellipse cx="42" cy="55" rx="10" ry="9" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/><circle cx="38" cy="53" r="1.8" fill="#3E3A39"/><circle cx="46" cy="53" r="1.8" fill="#3E3A39"/><path d="M30 38 q12 -9 24 0z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/></g><g class="steam"><path d="M18 40 q-5 -7 0 -14" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/></g>',
+   tower:bg+'<path d="M42 10 L54 66 H30 Z" fill="#F2A497" '+S+'/><path d="M34 44 H50 M37 30 H47" stroke="#3E3A39" stroke-width="3"/><circle cx="16" cy="40" r="6" fill="#FCEFEF" stroke="#3E3A39" stroke-width="2"/><circle cx="68" cy="34" r="6" fill="#FCEFEF" stroke="#3E3A39" stroke-width="2"/><circle cx="16" cy="40" r="2" fill="#F2A497"/><circle cx="68" cy="34" r="2" fill="#F2A497"/>'+snow,
+   wedding:bg+fuji+'<g class="float"><path d="M34 50 q8 -10 16 0 q-8 10 -8 14 q0 -4 -8 -14z" fill="#F2A497" '+S+'/></g>'+snow
+  };
+  return '<svg viewBox="0 0 84 84" aria-hidden="true">'+(m[k]||m.plane)+'</svg>';
+}
+
+/* ---------- 日期按鈕 ---------- */
+var daysEl=document.getElementById("days"), view=document.getElementById("dayview");
+DAYS.forEach(function(day,i){
+  var b=document.createElement("button");
+  b.type="button";b.setAttribute("role","tab");b.id="tab"+i;
+  b.innerHTML="<b>"+day.d+"</b><small>（"+day.w+"）"+(day.holiday?"假日":"")+"</small>";
+  b.addEventListener("click",function(){select(i,true);});
+  daysEl.appendChild(b);
+});
+daysEl.addEventListener("keydown",function(e){
+  var cur=+(store("tripDay")||0);
+  if(e.key==="ArrowRight"){select(Math.min(cur+1,DAYS.length-1),true);document.getElementById("tab"+Math.min(cur+1,DAYS.length-1)).focus();}
+  if(e.key==="ArrowLeft"){select(Math.max(cur-1,0),true);document.getElementById("tab"+Math.max(cur-1,0)).focus();}
+});
+
+function tagHtml(tg){return (tg||[]).map(function(k){var t=TAG[k];return t?'<span class="tag '+t[1]+'">'+t[0]+'</span>':"";}).join("");}
+
+function itemHtml(it,di,ii,drive){
+  var h='<li class="'+(it.star?"star":"")+'"><div class="time">'+esc(it.t)+'</div><span class="node"></span><div class="stop">';
+  h+='<div class="ttl">'+esc(it.n)+(it.star?'<span class="st">重點</span>':"")+'</div>';
+  h+='<div class="tags">'+tagHtml(it.tg)+'</div>';
+  if(it.note)h+='<div class="note">'+esc(it.note)+'</div>';
+  var a="";
+  if(it.link)a+='<a class="btn nav" target="_blank" rel="noopener" href="'+it.link+'">📍 導航</a>';
+  else if(it.q)a+='<a class="btn nav" target="_blank" rel="noopener" href="'+gq(it.q)+'">📍 導航</a>';
+  if(it.park)a+='<a class="btn park" target="_blank" rel="noopener" href="'+gq(it.park)+'">🅿️ 停車場</a>';
+  if(it.tel)a+='<a class="btn tel" href="tel:+81'+it.tel.replace(/^0/,"").replace(/-/g,"")+'">📞 '+esc(it.tel)+'</a>';
+  if(a)h+='<div class="acts">'+a+'</div>';
+  if(it.mc){
+    h+='<div class="mc"><span>Mapcode</span><b class="mcv">'+esc(it.mc)+'</b><button type="button" class="btn" data-copy="'+esc(it.mc)+'">複製</button></div>';
+  }
+  return h+'</div></li>';
+}
+
+/* 路線手繪板 */
+function board(day){
+  var pts=day.items.filter(function(it){return it.q||it.link;});
+  if(pts.length<2)pts=day.items;
+  var narrow=window.innerWidth<600;
+  var n=pts.length, W=narrow?340:640, rowH=narrow?96:110, perRow=Math.min(narrow?2:4,n), rows=Math.ceil(n/perRow), H=rows*rowH+40;
+  var xy=[];
+  for(var i=0;i<n;i++){
+    var r=Math.floor(i/perRow), c=i%perRow; if(r%2===1)c=perRow-1-c;
+    var x=(narrow?80:70)+c*((W-(narrow?160:140))/Math.max(perRow-1,1)); if(perRow===1)x=W/2;
+    var y=50+r*rowH+(c%2?14:-6);
+    xy.push([x,y]);
+  }
+  var col={plane:"#A8D3E6",train:"#B9DAA5",car:"#F6D27A",bus:"#F2A497",walk:"#EADFD2",hotel:"#FCEFEF",rest:"#EBF7FC",food:"#FEECA6",taxi:"#F2A497"};
+  var path="";
+  for(i=1;i<n;i++){
+    var p=xy[i-1],q=xy[i],mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2+((i%2)?-18:18);
+    path+='<path d="M'+p[0]+' '+p[1]+' Q'+mx+' '+my+' '+q[0]+' '+q[1]+'" fill="none" stroke="#3E3A39" stroke-width="3" stroke-dasharray="9 7" stroke-linecap="round"/>';
+  }
+  var dots="";
+  for(i=0;i<n;i++){
+    var it=pts[i], k=(it.tg&&it.tg[it.tg.length-1])||"walk", fill=col[k]||"#FFFCF6";
+    var label=it.n.replace(/Nippon Rent-A-Car /,"").replace(/（.*?）/g,"").replace(/ 入住| 取車| 還車| 抵達| 起飛/g,"");
+    if(label.length>8)label=label.slice(0,8)+"…";
+    dots+='<g><circle cx="'+xy[i][0]+'" cy="'+xy[i][1]+'" r="'+(it.star?17:14)+'" fill="'+fill+'" stroke="#3E3A39" stroke-width="3"/>'+
+      '<text x="'+xy[i][0]+'" y="'+(xy[i][1]+5)+'" text-anchor="middle" font-size="14" fill="#3E3A39" font-family="Huninn,sans-serif">'+(i+1)+'</text>'+
+      '<text x="'+xy[i][0]+'" y="'+(xy[i][1]+38)+'" text-anchor="middle" font-size="15" fill="#3E3A39" font-family="Huninn,sans-serif">'+esc(label)+'</text></g>';
+  }
+  var deco='<g opacity=".9"><path d="M'+(W-46)+' 24 l6 -12 l6 12z" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2"/><path d="M'+(W-42)+' 18 l2 -6 l2 6z" fill="#FFFCF6"/></g><text x="16" y="24" font-size="14" fill="#3E3A39" font-family="Huninn,sans-serif">'+day.d+' 路線示意</text>';
+  return '<div class="board"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+day.d+' 路線示意圖">'+deco+path+dots+'</svg><p class="cap">手繪示意，非實際比例｜顏色代表抵達方式。'+(day.route?'<a class="btn nav" style="margin-left:4px" target="_blank" rel="noopener" href="'+day.route+'">🗺️ 開啟整天路線</a>':"")+'</p></div>';
+}
+
+/* 地圖風路線圖 */
+function lineSample(st,c){
+  var a='stroke="'+c+'" stroke-linecap="round" fill="none"';
+  if(st==="walk")return '<line x1="4" y1="5" x2="36" y2="5" '+a+' stroke-width="4" stroke-dasharray="0.1 6.5"/>';
+  if(st==="dash")return '<line x1="3" y1="5" x2="37" y2="5" '+a+' stroke-width="3.5" stroke-dasharray="9 6"/>';
+  if(st==="rail")return '<line x1="3" y1="5" x2="37" y2="5" '+a+' stroke-width="2.5"/><rect x="12" y="2.5" width="5" height="5" fill="#B5473A"/><rect x="25" y="2.5" width="5" height="5" fill="#B5473A"/>';
+  if(st==="fly")return '<line x1="3" y1="5" x2="37" y2="5" '+a+' stroke-width="2.5" stroke-dasharray="6 5"/>';
+  if(st==="num")return '<circle cx="20" cy="5" r="5" fill="#4E6B7A"/><text x="20" y="7.3" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">'+c+'</text>';
+  return '<line x1="3" y1="5" x2="37" y2="5" '+a+' stroke-width="3.5"/>';
+}
+function mapBoard(day){
+  var m=day.map, F='font-family="-apple-system,\'PingFang TC\',\'Noto Sans TC\',\'Microsoft JhengHei\',sans-serif"';
+  var halo='paint-order="stroke" stroke="#F1F4EF" stroke-width="3.5" stroke-linejoin="round"';
+  var g='<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7FA3C8"/></marker></defs><rect width="'+m.W+'" height="'+m.H+'" fill="'+(m.bg||"#F1F4EF")+'"/>';
+  (m.lands||[]).forEach(function(d){g+='<path d="'+d+'" fill="#F1F4EF" stroke="#B9C7D3" stroke-width="1.2"/>';});
+  (m.zones||[]).forEach(function(z){g+='<rect x="'+z[0]+'" y="'+z[1]+'" width="'+z[2]+'" height="'+z[3]+'" rx="12" fill="'+z[4]+'"/><text x="'+(z[0]+z[2]/2)+'" y="'+(z[1]+24)+'" text-anchor="middle" font-size="15" fill="#4A5A63" '+F+'>'+esc(z[5])+'</text>';});
+  (m.hills||[]).forEach(function(h){g+='<path d="M'+(h[0]-h[2])+' '+(h[1]+h[2]*0.8)+' L'+h[0]+' '+(h[1]-h[2]*0.8)+' L'+(h[0]+h[2])+' '+(h[1]+h[2]*0.8)+'Z" fill="#DCDDC8"/>';});
+  (m.blobs||[]).forEach(function(b){g+='<ellipse cx="'+b[0]+'" cy="'+b[1]+'" rx="'+b[2]+'" ry="'+b[3]+'" fill="#DCDDC8"/>'+(b[4]?'<text x="'+b[0]+'" y="'+(b[1]+b[3]+16)+'" text-anchor="middle" font-size="12" fill="#5B6B73" '+F+'>'+esc(b[4])+'</text>':'');});
+  (m.lakes||[]).forEach(function(d){g+='<path d="'+d+'" fill="#C4DAEE" stroke="#8DB3D6" stroke-width="1.5"/>';});
+  (m.rivers||[]).forEach(function(d){g+='<path d="'+d+'" fill="none" stroke="#C4DAEE" stroke-width="5" stroke-linecap="round"/>';});
+  (m.water||[]).forEach(function(w){g+='<text x="'+w[0]+'" y="'+w[1]+'" text-anchor="middle" font-size="13" fill="#4A78A8" '+F+' font-weight="600">'+esc(w[2])+'</text>'+(w[3]?'<text x="'+w[0]+'" y="'+(w[1]+14)+'" text-anchor="middle" font-size="10.5" fill="#4A78A8" '+F+'>'+esc(w[3])+'</text>':'');});
+  if(m.fuji){var f=m.fuji;g+='<path d="M'+(f[0]-26)+' '+(f[1]+12)+' L'+(f[0]-7)+' '+(f[1]-12)+' Q'+f[0]+' '+(f[1]-16)+' '+(f[0]+7)+' '+(f[1]-12)+' L'+(f[0]+26)+' '+(f[1]+12)+'Z" fill="#DCDDC8"/><path d="M'+(f[0]-11)+' '+(f[1]-6)+' L'+(f[0]-7)+' '+(f[1]-12)+' Q'+f[0]+' '+(f[1]-16)+' '+(f[0]+7)+' '+(f[1]-12)+' L'+(f[0]+11)+' '+(f[1]-6)+' L'+(f[0]+4)+' '+(f[1]-8)+' L'+f[0]+' '+(f[1]-4)+' L'+(f[0]-4)+' '+(f[1]-8)+'Z" fill="#fff"/>';var fa=f[4]||"start",fx=fa==="middle"?f[0]:(fa==="end"?f[0]-32:f[0]+32),fy=fa==="middle"?f[1]+28:f[1]-1;if(f[2])g+='<text x="'+fx+'" y="'+fy+'" text-anchor="'+fa+'" font-size="13" font-weight="700" fill="#4A5A63" '+halo+' '+F+'>'+esc(f[2])+'</text>';if(f[3])g+='<text x="'+fx+'" y="'+(fy+14)+'" text-anchor="'+fa+'" font-size="10.5" fill="#5B6B73" '+F+'>'+esc(f[3])+'</text>';}
+  (m.notes||[]).forEach(function(t){g+='<text x="'+t[0]+'" y="'+t[1]+'" text-anchor="'+(t[3]||"start")+'" font-size="12" fill="#5B7A99" '+halo+' '+F+'>'+esc(t[2])+'</text>';});
+  (m.segs||[]).forEach(function(sg){
+    var st=sg[1], c=sg[2], a='fill="none" stroke="'+c+'" stroke-linecap="round" stroke-linejoin="round"';
+    if(st==="walk")g+='<path d="'+sg[0]+'" '+a+' stroke-width="4" stroke-dasharray="0.1 7"/>';
+    else if(st==="dash")g+='<path d="'+sg[0]+'" '+a+' stroke-width="3.5" stroke-dasharray="10 7"/>';
+    else if(st==="fly")g+='<path d="'+sg[0]+'" '+a+' stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#ah)"/>';
+    else g+='<path d="'+sg[0]+'" '+a+' stroke-width="'+(st==="rail"?3:3.5)+'"/>';
+  });
+  (m.nodes||[]).forEach(function(n){
+    var x=n[0],y=n[1],k=n[2],L=n[4];
+    if(k==="ref")g+='<circle cx="'+x+'" cy="'+y+'" r="4.5" fill="#4E6B7A" stroke="#fff" stroke-width="1.5"/>';
+    else{
+      var fill=k==="home"?"#6E6A2F":(k==="star"?"#3C4F5C":"#4E6B7A"), r=k==="home"?11:10;
+      g+='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+fill+'" stroke="#fff" stroke-width="2"/><text x="'+x+'" y="'+(y+4)+'" text-anchor="middle" font-size="'+(k==="home"?10.5:11)+'" font-weight="700" fill="#fff" '+F+'>'+esc(n[3])+'</text>';
+    }
+    var big=k==="ref"?12:15;
+    g+='<text x="'+L[0]+'" y="'+L[1]+'" text-anchor="'+L[2]+'" font-size="'+big+'" font-weight="700" fill="#33424B" '+halo+' '+F+'>'+esc(n[5])+'</text>';
+    if(n[6])g+='<text x="'+L[0]+'" y="'+(L[1]+14)+'" text-anchor="'+L[2]+'" font-size="11" fill="#5B6B73" '+halo+' '+F+'>'+esc(n[6])+'</text>';
+  });
+  if(m.north)g+='<path d="M'+(m.north[0]-6)+' '+(m.north[1]+5)+' L'+m.north[0]+' '+(m.north[1]-6)+' L'+(m.north[0]+6)+' '+(m.north[1]+5)+'Z" fill="#33424B"/><text x="'+m.north[0]+'" y="'+(m.north[1]+19)+'" text-anchor="middle" font-size="11" fill="#33424B" '+F+'>北</text>';
+  if(m.scale){var sc=m.scale;g+='<path d="M'+sc[0]+' '+(sc[1]-5)+' V'+(sc[1]+3)+' M'+sc[0]+' '+sc[1]+' H'+(sc[0]+sc[2])+' M'+(sc[0]+sc[2])+' '+(sc[1]-5)+' V'+(sc[1]+3)+'" stroke="#33424B" stroke-width="2" fill="none"/><text x="'+(sc[0]+sc[2]/2)+'" y="'+(sc[1]-8)+'" text-anchor="middle" font-size="11" fill="#33424B" '+F+'>'+esc(sc[3])+'</text>';}
+  var lg="";
+  (m.legend||[]).forEach(function(l){lg+='<div><span class="cd">'+esc(l[0])+'</span><svg viewBox="0 0 40 10" aria-hidden="true">'+lineSample(l[1],l[2])+'</svg><span>'+esc(l[3])+'</span></div>';});
+  return '<div class="mapb"><svg viewBox="0 0 '+m.W+' '+m.H+'" role="img" aria-label="'+day.d+' 路線地圖">'+g+'</svg>'+(lg?'<div class="mlg">'+lg+'</div>':'')+'<p class="cap">'+esc(m.cap||"示意圖，不照比例。")+(day.route?' <a class="btn nav" style="margin-left:4px" target="_blank" rel="noopener" href="'+day.route+'">🗺️ 開啟整天路線</a>':"")+'</p></div>';
+}
+
+/* 航班即時狀態：連結＋出發當天自動更新（db） */
+var FLIGHTS={
+  GK018:{day:"2/16（二）",when:"2/16 08:00–19:00",links:[["Google 查 GK18","https://www.google.com/search?q=GK18+flight+status"],["前一班 GK17","https://www.google.com/search?q=GK17+flight+status"],["FlightAware","https://www.flightaware.com/live/flight/JJP18"],["Flightradar24","https://www.flightradar24.com/data/flights/gk18"]]},
+  BR107:{day:"2/25（四）",when:"2/25 06:00–16:00",links:[["Google 查 BR107","https://www.google.com/search?q=BR107+flight+status"],["FlightAware","https://www.flightaware.com/live/flight/EVA107"],["Flightradar24","https://www.flightradar24.com/data/flights/br107"]]}
+};
+function fmtTW(iso){try{var d=new Date(iso);if(isNaN(d))return "";var t=new Date(d.getTime()+8*3600e3);return (t.getUTCMonth()+1)+"/"+t.getUTCDate()+" "+String(t.getUTCHours()).padStart(2,"0")+":"+String(t.getUTCMinutes()).padStart(2,"0");}catch(e){return "";}}
+function renderFlight(code,data,note){
+  var el=document.querySelector('.fst[data-f="'+code+'"]');if(!el)return;var f=FLIGHTS[code];
+  var lv="info",st="即時查詢",body="點下方按鈕查詢即時起降狀態（出發當天 "+f.when+"，台灣時間）。",meta="";
+  if(data){
+    lv=({ok:1,warn:1,bad:1,info:1}[data.level])?data.level:"info";
+    st=String(data.status||"已更新");
+    var parts=[];
+    if(data.dep)parts.push("起飛 "+esc(String(data.dep)));
+    if(data.arr)parts.push("抵達 "+esc(String(data.arr)));
+    if(data.terminal)parts.push(esc(String(data.terminal)));
+    if(data.gate)parts.push("登機門 "+esc(String(data.gate)));
+    body=(parts.length?parts.join("｜"):"")+(data.note?(parts.length?"<br>":"")+esc(String(data.note)):"");
+    if(!body)body="目前沒有更多資訊。";
+    var when=data.checkedAt?fmtTW(data.checkedAt):"";
+    meta=(when?"最後更新 "+when+"（台灣時間）":"")+(data.source?"・資料來源："+esc(String(data.source)):"");
+    if(data.checkedAt&&Date.now()>Date.UTC(2027,1,13)&&Date.now()<Date.UTC(2027,1,26)&&Date.now()-new Date(data.checkedAt).getTime()>3*3600e3)meta+="・可能不是最新，請點按鈕確認";
+  }
+  if(note)meta=(meta?meta+"・":"")+note;
+  var h='<div class="fsh">🛫 即時狀態 <span class="stp '+lv+'">'+esc(st)+'</span></div><p class="fsd">'+(data?body:esc(body))+'</p>'+(meta?'<p class="fsm">'+meta+'</p>':'')+'<div class="fsl">';
+  f.links.forEach(function(l){h+='<a class="btn" target="_blank" rel="noopener" href="'+l[1]+'">'+esc(l[0])+'</a>';});
+  el.innerHTML=h+'</div>';
+}
+Object.keys(FLIGHTS).forEach(function(c){renderFlight(c,null);});
+var OVERVIEW={"W": 400, "H": 382, "bg": "#DCEAF3", "lands": ["M0.0 8.0 L400.0 8.0 L400.0 255.2 L392.6 310.1 L351.1 355.9 L325.9 374.2 L306.7 374.2 L308.1 328.5 L325.9 282.7 L340.7 258.9 L312.6 244.2 L297.8 264.4 L283.0 282.7 L287.4 310.1 L277.0 335.8 L262.2 313.8 L232.6 308.3 L207.4 321.1 L197.0 346.8 L191.1 374.2 L155.6 374.2 L164.4 350.4 L140.7 343.1 L114.1 355.9 L96.3 374.2 L0.0 374.2Z"], "lakes": ["M138.6 273.9 a9.0 3.5 0 1 0 18.0 0 a9.0 3.5 0 1 0 -18.0 0Z", "M42.4 172.8 a8.0 5.0 0 1 0 16.0 0 a8.0 5.0 0 1 0 -16.0 0Z"], "fuji": [145.2, 305.2, "富士山", "", "end"], "hills": [[60, 120, 18], [96, 80, 16], [40, 200, 14]], "segs": [["M400.0 330.0 Q365.7 279.6 391.1 224.1", "fly", "#7FA3C8"], ["M391.1 224.1 Q332.1 221.4 277.0 242.4", "rail", "#3F5A80"], ["M277.0 242.4 Q211.2 246.4 149.6 269.9", "dash", "#8A5BB0"], ["M149.6 269.9 Q162.2 275.1 165.9 288.2", "car", "#B5473A"], ["M165.9 288.2 Q179.9 294.7 180.7 310.1", "car", "#B5473A"], ["M180.7 310.1 Q163.0 346.3 128.9 324.8", "car", "#B5473A"], ["M128.9 324.8 Q107.4 239.6 50.4 172.8", "car", "#B5473A"], ["M50.4 172.8 Q36.2 158.1 32.6 138.0", "car", "#B5473A"], ["M32.6 138.0 Q36.1 95.7 65.2 64.8", "car", "#B5473A"], ["M65.2 64.8 Q78.7 47.5 100.7 48.3", "car", "#B5473A"], ["M100.7 48.3 Q87.2 65.6 65.2 64.8", "car", "#B5473A"], ["M65.2 64.8 Q201.5 122.5 303.7 229.6", "rail", "#9AA7AE"], ["M303.7 229.6 Q219.1 222.1 165.9 288.2", "walk", "#D08A3C"], ["M303.7 229.6 Q346.5 212.9 391.1 224.1", "rail", "#3F5A80"], ["M391.1 224.1 Q415.5 290.7 400.0 360.0", "fly", "#7FA3C8"]], "nodes": [[277.0, 242.4, "n", "1", [263.0, 262.4, "end"], "新宿", "2/16–17"], [149.6, 269.9, "n", "2", [137.6, 263.9, "end"], "河口湖", "2/18"], [128.9, 324.8, "n", "3", [114.9, 329.8, "end"], "富士宮", "2/19"], [32.6, 138.0, "n", "4", [46.6, 143.0, "start"], "松本", "2/20"], [100.7, 48.3, "n", "5", [114.7, 53.3, "start"], "澀溫泉", "2/21"], [65.2, 64.8, "n", "6", [51.2, 69.8, "end"], "長野", "2/22"], [303.7, 229.6, "n", "7", [303.7, 199.6, "middle"], "上野", "2/23–24"], [391.1, 224.1, "ref", "", [385.1, 212.1, "end"], "成田", ""]], "notes": [[300, 320, "✈ 2/16 抵達・2/25 回台灣", "middle"], [332, 262, "太平洋", "middle"], [160, 354, "駿河灣", "middle"]], "legend": [["", "num", "1", "新宿 APA 2/16–17"], ["", "num", "2", "河口湖 秀峰閣湖月 2/18"], ["", "num", "3", "富士宮富士急 2/19"], ["", "num", "4", "Celecton 松本 2/20"], ["", "num", "5", "澀溫泉 山崎屋 2/21"], ["", "num", "6", "Livemax 長野 2/22"], ["", "num", "7", "京成上野 APA 2/23–24"], ["自駕", "car", "#B5473A", "2/18 河口湖取車 → 2/22 長野還車"], ["電車", "rail", "#9AA7AE", "2/23 淺間號 長野→上野"], ["一日遊", "walk", "#D08A3C", "2/24 包車去山中湖、河口湖拍婚紗"]], "cap": "依大約經緯度繪製，北方朝上。海岸線是簡化形狀。"};
+try{document.getElementById("ov").innerHTML=mapBoard({d:"全程",map:OVERVIEW});}catch(e){}
+/* 天氣 */
+var WX={0:["☀️","晴"],1:["🌤️","大致晴"],2:["⛅","晴時多雲"],3:["☁️","陰"],45:["🌫️","霧"],48:["🌫️","霧凇"],51:["🌦️","毛毛雨"],53:["🌦️","毛毛雨"],55:["🌧️","毛毛雨"],56:["🌧️","凍毛毛雨"],57:["🌧️","凍毛毛雨"],61:["🌧️","小雨"],63:["🌧️","雨"],65:["🌧️","大雨"],66:["🌧️","凍雨"],67:["🌧️","凍雨"],71:["🌨️","小雪"],73:["🌨️","下雪"],75:["❄️","大雪"],77:["🌨️","雪粒"],80:["🌦️","陣雨"],81:["🌧️","陣雨"],82:["⛈️","強陣雨"],85:["🌨️","陣雪"],86:["❄️","大陣雪"],95:["⛈️","雷雨"],96:["⛈️","雷雨冰雹"],99:["⛈️","雷雨冰雹"]};
+var wxCache={};
+function wxLink(w){var q=w.q||w.n.replace(/・.*/,"");return '<div class="acts"><a class="btn nav" target="_blank" rel="noopener" href="https://www.google.com/search?q='+encodeURIComponent(q+" 天氣")+'">🌤️ 查看'+esc(q)+'即時天氣</a></div>';}
+function loadWx(i){
+  var day=DAYS[i], box=document.getElementById("wx-body");
+  if(!box)return;
+  var w=day.wx, key=w.lat+","+w.lon, pr=day.d.split("/"), date="2027-"+pad(+pr[0])+"-"+pad(+pr[1]);
+  function show(data){
+    if(+(store("tripDay")||0)!==i)return;
+    var html="", idx=data.daily&&data.daily.time?data.daily.time.indexOf(date):-1;
+    if(idx>=0){
+      var c=WX[data.daily.weather_code[idx]]||["🌡️",""];
+      html='<div class="wx"><span class="big">'+c[0]+'</span><div><div class="lbl">'+esc(w.n)+'・'+day.d+' 預報</div><div class="tt">'+Math.round(data.daily.temperature_2m_max[idx])+'° / '+Math.round(data.daily.temperature_2m_min[idx])+'°C</div><div class="lbl">'+c[1]+'</div></div></div>';
+    }else if(data.current){
+      var cc=WX[data.current.weather_code]||["🌡️",""];
+      html='<div class="wx"><span class="big">'+cc[0]+'</span><div><div class="lbl">'+esc(w.n)+'・現在天氣</div><div class="tt">'+Math.round(data.current.temperature_2m)+'°C <small style="font-size:14px">（今日 '+Math.round(data.daily.temperature_2m_max[0])+'° / '+Math.round(data.daily.temperature_2m_min[0])+'°）</small></div><div class="lbl">'+cc[1]+'｜出發前 16 天內會改顯示當天預報</div></div></div>';
+    }
+    box.innerHTML=html+'<div class="wx-ref">'+esc(w.ref)+'</div>'+wxLink(w);
+  }
+  if(wxCache[key]){show(wxCache[key]);return;}
+  box.innerHTML='<div class="lbl">'+esc(w.n)+' 天氣讀取中…</div><div class="wx-ref">'+esc(w.ref)+'</div>'+wxLink(w);
+  var url="https://api.open-meteo.com/v1/forecast?latitude="+w.lat+"&longitude="+w.lon+"&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=16";
+  fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){wxCache[key]=d;show(d);}).catch(function(){
+    if(+(store("tripDay")||0)!==i)return;
+    box.innerHTML='<div class="lbl">'+esc(w.n)+'：點下方按鈕查看即時天氣與一週預報</div><div class="wx-ref">'+esc(w.ref)+'</div>'+wxLink(w);
+  });
+}
+
+function select(i,anim){
+  store("tripDay",String(i));
+  Array.prototype.forEach.call(daysEl.children,function(b,j){b.setAttribute("aria-selected",j===i?"true":"false");b.tabIndex=j===i?0:-1;});
+  var day=DAYS[i];
+  var tb=daysEl.children[i], left=tb.offsetLeft-(daysEl.clientWidth-tb.offsetWidth)/2;
+  try{daysEl.scrollTo({left:left,behavior:(reduce||!anim)?"auto":"smooth"});}catch(e){daysEl.scrollLeft=left;}
+  var h='<div class="card sky"><div class="day-head"><div class="ill">'+ill(day.ill)+'</div><div><div class="pill">Day '+(i+1)+'｜'+day.d+'（'+day.w+'）'+(day.holiday?'｜日本國定假日':'')+(day.drive?'｜🚗 自駕':'')+'</div><h3>'+esc(day.title)+'</h3><div class="sub muted">'+esc(day.sub)+'</div></div></div></div>';
+  h+='<div class="card ice"><b>🌡️ 當地天氣</b><div id="wx-body" style="margin-top:6px"></div></div>';
+  h+='<ol class="tl">'+day.items.map(function(it,ii){return itemHtml(it,i,ii,day.drive);}).join("")+'</ol>';
+  h+=day.map?mapBoard(day):board(day);
+  view.innerHTML='<div class="'+(anim&&!reduce?"bounce":"")+'">'+h+'</div>';
+  loadWx(i);
+}
+var start=+(store("tripDay")||0); if(!(start>=0&&start<DAYS.length))start=0;
+select(start,false);
+
+document.addEventListener("click",function(e){
+  var b=e.target.closest&&e.target.closest("[data-copy]"); if(!b)return;
+  var v=b.getAttribute("data-copy");
+  function done(ok){var t=b.textContent;b.textContent=ok?"已複製":"請長按選取";setTimeout(function(){b.textContent=t;},1500);}
+  try{navigator.clipboard.writeText(v).then(function(){done(true);},function(){sel(b);done(false);});}catch(err){sel(b);done(false);}
+  function sel(btn){var el=btn.previousElementSibling;if(!el)return;var r=document.createRange();r.selectNodeContents(el);var s2=window.getSelection();s2.removeAllRanges();s2.addRange(r);}
+});
+/* ---------- 匯率 ---------- */
+(function(){
+  var rateEl=document.getElementById("fx-rate"),meta=document.getElementById("fx-meta"),jpy=document.getElementById("fx-jpy"),twd=document.getElementById("fx-twd"),tax=document.getElementById("fx-tax");
+  if(!rateEl)return;
+  var DEF=0.21, rate=DEF, manual=false, last="jpy";
+  try{var m=JSON.parse(store("fxManual")||"null");if(m&&m.r){rate=+m.r;manual=true;}}catch(e){}
+  var cache=null;try{cache=JSON.parse(store("fxAuto")||"null");}catch(e){}
+  function today(){var d=new Date(Date.now()+8*3600e3);return d.getUTCFullYear()+"-"+(d.getUTCMonth()+1)+"-"+d.getUTCDate();}
+  function fmt(n,dp){return isFinite(n)?(+n).toLocaleString("zh-TW",{maximumFractionDigits:dp}):"";}
+  function calc(){
+    var k=tax.checked?1.1:1;
+    if(last==="jpy"){var v=parseFloat(jpy.value);twd.value=isFinite(v)?Math.round(v*k*rate):"";}
+    else{var t=parseFloat(twd.value);jpy.value=isFinite(t)?Math.round(t/rate/k):"";}
+  }
+  function showMeta(txt){meta.textContent=txt;}
+  function setAuto(r,date){rate=r;rateEl.value=r.toFixed(4);showMeta("已自動更新 "+date);calc();}
+  rateEl.value=rate.toFixed(4);
+  if(manual)showMeta("使用你手動填的匯率");
+  else if(cache&&cache.r){setAuto(+cache.r,cache.d);}
+  if(!manual&&!(cache&&cache.day===today())){
+    fetch("https://open.er-api.com/v6/latest/JPY").then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
+      var r=d&&d.rates&&d.rates.TWD;if(!r)throw 0;
+      var dt=new Date((d.time_last_update_unix||Date.now()/1000)*1000+8*3600e3),ds=(dt.getUTCMonth()+1)+"/"+dt.getUTCDate();
+      try{store("fxAuto",JSON.stringify({r:r,d:ds,day:today()}));}catch(e){}
+      if(!manual)setAuto(r,ds);
+    }).catch(function(){if(!manual&&!(cache&&cache.r))showMeta("暫時抓不到匯率，先用約 0.21 計算");});
+  }
+  rateEl.addEventListener("input",function(){var v=parseFloat(rateEl.value);if(v>0){rate=v;manual=true;store("fxManual",JSON.stringify({r:v}));showMeta("使用你手動填的匯率");calc();}});
+  document.getElementById("fx-auto").addEventListener("click",function(){manual=false;try{localStorage.removeItem("fxManual");}catch(e){}
+    try{cache=JSON.parse(store("fxAuto")||"null");}catch(e){}
+    if(cache&&cache.r)setAuto(+cache.r,cache.d);else{rate=DEF;rateEl.value=DEF.toFixed(4);showMeta("重新整理頁面後會抓今日匯率");calc();}});
+  jpy.addEventListener("input",function(){last="jpy";calc();});
+  twd.addEventListener("input",function(){last="twd";calc();});
+  tax.addEventListener("change",calc);
+  var q=document.getElementById("fx-quick");
+  [1000,3000,5000,10000,30000].forEach(function(v){var b=document.createElement("button");b.type="button";b.className="btn";b.textContent="¥"+fmt(v,0);b.addEventListener("click",function(){jpy.value=v;last="jpy";calc();});q.appendChild(b);});
+})();
+
+/* ---------- 住宿 ---------- */
+var HOTELS=[
+ {d:"2/16–2/18（2 晚）",n:"APA 新宿歌舞伎町塔樓飯店",a:"東京都新宿區歌舞伎町 1-20-2",q:"東京都新宿区歌舞伎町1-20-2",via:"KLOOK",no:"QHS825282",p:"NT$6,536",st:["已付","paid"],info:"雙人房・禁菸｜入住 15:00–24:00，退房 10:00｜新宿站走路約 10 分鐘｜住宿稅可能現場另收"},
+ {d:"2/18–2/19",n:"秀峰閣 湖月",mc:"161 361 563*34",a:"山梨縣南都留郡富士河口湖町河口 2312",q:"山梨県南都留郡富士河口湖町河口2312",tel:"0555-76-8888",via:"飯店直接預約",no:"202610180004375.01",p:"¥72,600（每人 ¥36,300）",st:["已付","paid"],info:"帶足湯的和洋室｜含晚餐（房間用餐）、早餐｜退房 11:00｜湖景看富士山與逆富士｜入湯稅現場付"},
+ {d:"2/19–2/20",n:"富士宮富士急酒店",mc:"72 494 247*67",a:"靜岡縣富士宮市中央町 15-18",q:"静岡県富士宮市中央町15-18",via:"KLOOK",no:"EVG782534",p:"NT$2,247",st:["已付","paid"],info:"市景雙人房・禁菸｜含早餐｜有停車場、餐廳｜走路可到淺間大社、世界遺產中心"},
+ {d:"2/20–2/21",n:"The Celecton 松本",mc:"75 851 214*61",a:"長野縣松本市城西 1-3-38",q:"36.23845446183523,137.96483087520988",tel:"0263-88-0202",via:"KLOOK",no:"EHV105953",p:"NT$1,458＋停車 ¥1,000",st:["已付","paid"],info:"雙人房・禁菸｜不含早餐｜松本城走路 3 分鐘｜男女分開大浴場｜停車 33 格先到先停｜入住 15:00，退房 10:00"},
+ {d:"2/21–2/22",n:"山崎屋旅館",mc:"341 816 773*00",a:"長野縣下高井郡山之內町平穩 2299（安代溫泉）",q:"長野県下高井郡山ノ内町平穏2299",tel:"0269-33-3025",via:"旅館官網／email",p:"約 ¥38,320（估算）",st:["現場付","onsite"],info:"白樺の間｜一泊二食 ¥14,850（＋入湯稅、住宿稅、暖氣費）｜加點：烤岩魚＋河魚生魚片、骰子牛排＋馬肉生魚片｜免費停車約 10 格｜入住 15:00–18:00，退房 10:00"},
+ {d:"2/22–2/23",n:"Livemax Premium 長野站前",a:"長野縣長野市栗田 995-1",q:"長野県長野市栗田995-1",tel:"026-225-1050",via:"Booking.com",no:"6683038914",p:"¥6,436",st:["已付","paid"],info:"小型雙人床房・禁菸｜長野站東口走路 2–3 分鐘｜有大浴場｜入住 15:00，退房 10:00"},
+ {d:"2/23–2/25（2 晚）",n:"京成上野站前 APA 酒店",a:"東京都台東區上野 2-14-26",q:"東京都台東区上野2-14-26",via:"KLOOK",no:"JKR450356",p:"NT$7,427",st:["已付","paid"],info:"雙人房・禁菸｜不含早餐｜京成上野站前，搭 Skyliner 最方便｜住宿稅可能另收"}
+];
+var bgs=["pink","","ice","butter","tea","sky","pink"];
+document.getElementById("hotels").innerHTML=HOTELS.map(function(h,i){
+  return '<div class="card hotel '+bgs[i]+'"><span class="date">'+h.d+'</span><h3>'+esc(h.n)+'</h3><div style="margin-top:4px"><span class="pill '+h.st[1]+'">'+h.st[0]+'</span><span class="pill">'+esc(h.via)+'</span>'+(h.no?'<span class="pill">訂單 '+h.no+'</span>':"")+'</div>'+
+  '<dl class="kv"><dt>價錢</dt><dd>'+esc(h.p)+'</dd>'+(h.mc?'<dt>Mapcode</dt><dd><b class="mcv">'+esc(h.mc)+'</b> <button type="button" class="btn" data-copy="'+esc(h.mc)+'">複製</button></dd>':'')+'<dt>地址</dt><dd>'+esc(h.a)+'</dd><dt>說明</dt><dd>'+esc(h.info)+'</dd></dl>'+
+  '<div class="acts"><a class="btn nav" target="_blank" rel="noopener" href="'+gq(h.q)+'">📍 導航</a>'+(h.tel?'<a class="btn tel" href="tel:+81'+h.tel.replace(/^0/,"").replace(/-/g,"")+'">📞 '+h.tel+'</a>':"")+'</div></div>';
+}).join("");
+
+/* ---------- 待辦清單 ---------- */
+var TODO_VER="2026-11-15a";
+var DEFAULT_TODO=[
+ ["11/23 13:00 早期予約淺間號（2/23 長野→上野）","搶票"],
+ ["11/23 23:00 搶地獄谷門票（2/22 09:00 時段）","搶票"],
+ ["1/17 買 2/16 Skyliner e-ticket 並登錄臉部（成田 → 日暮里轉山手線到新宿，主方案）；備案 N'EX 成田特快直達新宿，當天買即可（最早 1/16 日本 10:00 開放）","搶票"],
+ ["1/18 預約 2/18 06:45 高速巴士（Busta 新宿 → 河口湖站）","搶票"],
+ ["1/26 訂 Skyliner（2/25 京成上野 → 成田，指定班次）","搶票"],
+ ["2/2 23:00（台灣）搶 SHIBUYA SKY 2/17 16:40 入場票（¥3,400/人）","搶票"],
+ ["確認 2/24 集合時間、化妝地點、雨雪備案","婚紗"],
+ ["出發前看日本橋一里 Instagram，確認 2/23（國定假日）有營業、最後點餐時間","出發前"],
+ ["確認捷星託運 25kg 加在哪位乘客","交通"],
+ ["註冊 えきねっと、Webket 帳號","交通"],
+ ["USB-A 轉 Type-C 線＋車用充電頭","行李"],
+ ["防滑鞋或冰爪、暖暖包","行李"],
+ ["零下 10°C 保暖衣物、防水外套","行李"],
+ ["換日圓現金","行李"],
+ ["準備 Suica（手機或實體卡），搭 JR 山手線用","交通"],
+ ["台灣駕照正本＋日文譯本（監理站申請）","行李"],
+ ["出發前 1–2 週看積雪，決定 2/23 是否走越後湯澤","出發前"]
+];
+function freshTodos(){return DEFAULT_TODO.map(function(x){return {t:x[0],g:x[1],d:false};});}
+var todos=null, saved=null;
+try{saved=JSON.parse(store("tripTodos")||"null");}catch(e){saved=null;}
+if(saved&&!Array.isArray(saved)&&saved.v===TODO_VER&&Array.isArray(saved.items)){todos=saved.items;}
+else{
+  var oldItems=Array.isArray(saved)?saved:(saved&&Array.isArray(saved.items)?saved.items:[]);
+  var doneMap={};oldItems.forEach(function(x){if(x&&x.d)doneMap[x.t]=true;});
+  todos=freshTodos().map(function(x){x.d=!!doneMap[x.t];return x;});
+  oldItems.forEach(function(x){if(x&&x.g==="自訂")todos.push(x);});
+  try{store("tripTodos",JSON.stringify({v:TODO_VER,items:todos}));}catch(e){}
+}
+var listEl=document.getElementById("todo-list");
+function saveTodo(){store("tripTodos",JSON.stringify({v:TODO_VER,items:todos}));}
+function renderTodo(){
+  listEl.innerHTML=todos.map(function(x,i){
+    return '<li class="'+(x.d?"done":"")+'"><input type="checkbox" id="td'+i+'" data-i="'+i+'" '+(x.d?"checked":"")+'><label for="td'+i+'">'+esc(x.t)+(x.g?' <span class="grp">#'+esc(x.g)+'</span>':"")+'</label><button class="del" type="button" data-del="'+i+'" aria-label="刪除：'+esc(x.t)+'">✕</button></li>';
+  }).join("");
+  var done=todos.filter(function(x){return x.d;}).length;
+  document.getElementById("todo-count").textContent="完成 "+done+" / "+todos.length;
+  document.getElementById("prog").style.width=(todos.length?done/todos.length*100:0)+"%";
+}
+listEl.addEventListener("change",function(e){var i=e.target.dataset.i;if(i===undefined)return;todos[i].d=e.target.checked;saveTodo();renderTodo();});
+listEl.addEventListener("click",function(e){var i=e.target.dataset&&e.target.dataset.del;if(i===undefined)return;todos.splice(+i,1);saveTodo();renderTodo();});
+document.getElementById("todo-form").addEventListener("submit",function(e){
+  e.preventDefault();var inp=document.getElementById("todo-in"),v=inp.value.trim();if(!v)return;
+  todos.push({t:v,g:"自訂",d:false});saveTodo();renderTodo();inp.value="";
+});
+var resetBtn=document.getElementById("todo-reset"), resetArmed=false, resetTimer;
+resetBtn.addEventListener("click",function(){
+  if(!resetArmed){resetArmed=true;resetBtn.textContent="再按一次確認（會清除自訂與勾選）";clearTimeout(resetTimer);resetTimer=setTimeout(function(){resetArmed=false;resetBtn.textContent="恢復預設清單";},4000);return;}
+  resetArmed=false;clearTimeout(resetTimer);resetBtn.textContent="恢復預設清單";
+  todos=freshTodos();saveTodo();renderTodo();
+});
+renderTodo();
+
+/* ---------- 導覽高亮 ---------- */
+var links=document.querySelectorAll(".nav-links a");
+if("IntersectionObserver" in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){links.forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+en.target.id);});}});},{rootMargin:"-45% 0px -50% 0px"});
+  ["flight","plan","hotel","todo","more"].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});
+}
+})();
+</script>
+
+</body></html>
