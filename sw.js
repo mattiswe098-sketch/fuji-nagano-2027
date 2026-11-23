@@ -1,5 +1,5 @@
 /* 富士長野雪國之旅：離線快取 */
-var VER="v1-2026-11-24";
+var VER="v2-2026-11-24";
 var CORE=["./","index.html","apple-touch-icon.png","favicon-32.png","icon-512.png","qr/tickets.json"];
 self.addEventListener("install",function(e){
   e.waitUntil(caches.open(VER).then(function(c){

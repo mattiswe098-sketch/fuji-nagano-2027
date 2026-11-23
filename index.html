@@ -980,6 +980,7 @@ document.addEventListener("click",function(e){
   function sel(btn){var el=btn.previousElementSibling;if(!el)return;var r=document.createRange();r.selectNodeContents(el);var s2=window.getSelection();s2.removeAllRanges();s2.addRange(r);}
 });
 /* ---------- 票券 QR Code ---------- */
+var TICKETS_DATA=[{"id":"jigokudani","name":"地獄谷野猿公苑 入苑券","date":"2027-02-22","time":"09:00","source":"Webket","note":"Web入苑券 一般大人 ¥880","purchased":"2026-11-24","users":[{"label":"使用者 1","qr":"20261124088002012210221304010200206210710","qrimg":"qr/jigokudani_u1.png","qrdata":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATYAAAE2AQAAAADDx4MEAAAB9klEQVR4Xu1aS26DUAy0G6QuyY3gyr0BHKU3CMtKIFf+PCBKaFi8uJuZXRB5C8+zPWPDQmewfJx5i4jw3nMgLogL8uMYZ/ODRGQux7QzyUAXLWEXkaE81lfOnof3auSlGJQK7sk4+mGi1p46W4hzjTi/RsR5ZGYiWliGdiZmbvSvCzNf/QzwkcpHQEvVxLyvYQHw8R98EHHfitAYWbEBfOTwYXWJqHMbsjTUfTUzE316U9dnqFd/oPY9fdRXJrJcaQWgr47xDj4eQN3NiNoAvZtUr5Tfhb1hjKaqJlNaiqkhGq+L/ax9D3DeAUJLaYFSryGDuw4R8x+rCUH8cvr5agXJrXmhJ+yhO3X480PUvqd3WeFdo7Ty7lYmJ+AjlY+1Nnku2M+YZInckB/Zeldrk3UNS4itawQV0LvJencmE7huALVKiVauAuRHNh+ld5vr0ExxUtQUQl+9wHv6eeSHiV5NjUiXoAf9PLufF2jlUn1lIstXH7EEqX0PcN6xn9E1h6FMdX3/EUNe+PPM/uH3dNsP2pTEW4cPsaKz4z7n+fMwgN7KXe/uAH2Vnx8PsHlJmWkpkB85+XEfZ92fa72S74a4VzsSi3XwkcTHqqVWk67zkjCFqz3E/iOXj8DOf+D7q3OoXccZ3+8+Re044zzEGTrsGGfz4xdxfq8ATGS9lwAAAABJRU5ErkJggg=="},{"label":"使用者 2","qr":"20261124088002022210221304010200906210710","qrimg":"qr/jigokudani_u2.png","qrdata":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATYAAAE2AQAAAADDx4MEAAACJUlEQVR4Xu1ay26DMBCcLUg5hj8if1b1z+BT8gGVyLESaKt9YNo0AQ7GPWTnECmEGLTjmfWuTYw9mN723AUg7nuMiEvEJfTxHHv1AWYe52HOI9Ayi4VVzN18WW7ZO17cl0OXrOiEhY9mImb+IuCsV42tiHOOOG/D49wTEYCJgNuJiaiWv05E1NgYwUcZPjTuCRUTzp/EwPT7h+CjEB+P533vqlgQ+iiqj9bKEFWFiAQnS+pyLfxqBcfMU1JcAHCHibg7Sz6/6VUzrmOeu41Xe64JIsXFVEHttZaVb/jVJo6YLxNZwujnVZW/xa0G+kbWXKGPUvncSw8BWh7FryqrRrT+SEXIEfNgD17tucYHpDTnTuvzQexLSkFhxir1qM8L6wPtAKOCO6PCvwYfG8it39S/ci14/0rlotIQjkIfxfQh/FrERR+WuwWVawa68o18XjKfp/6useCqWJgJfZTTR2rtasKY07s03S29z03e3D4Z4z2BW5UudS1rCDOzZiy9R/4o6lcLVBCjceRbH8HHKo7QuWxzKBrxqwHSztLSXN8k6vM15OYjaUEThpce5lxJJOFX5fzKt536C7SXKH41gIBaPiAf1m3MPQ9ivMe4jwu9S6Xu/ZIfpx0ifvvil7dO0f3zGszXGnSR9a5vrAcfhfj4mz+kq+tF4dzTivVu5nm/grvzV0srMc5f7UFuH5ezJDsQ53cL+VVufmO8/8j75fz01fj9Bh/2bZ2XHJfrAAAAAElFTkSuQmCC"}],"icon":"🐒","sub":"09:00｜Webket｜一般大人 ¥880"}];/*TICKETS_END*/
 (function(){
   var list=document.getElementById("tk-list"),sheet=document.getElementById("tk-sheet");if(!list||!sheet)return;
   var PLAN=[
@@ -1008,7 +1009,7 @@ document.addEventListener("click",function(e){
   }
   function show(i){
     var t=cur,n=t.users.length;idx=(i+n)%n;var u=t.users[idx];
-    document.getElementById("tk-img").src=u.qrimg;document.getElementById("tk-img").alt=t.name+" "+u.label+" QR Code";
+    document.getElementById("tk-img").src=u.qrdata||u.qrimg;document.getElementById("tk-img").alt=t.name+" "+u.label+" QR Code";
     document.getElementById("tk-who").textContent=u.label;
     document.getElementById("tk-dots").innerHTML=t.users.map(function(x,j){return '<i class="'+(j===idx?'on':'')+'"></i>';}).join("");
     Array.prototype.forEach.call(document.querySelectorAll("#tk-seg button"),function(b,j){b.classList.toggle("on",j===idx);b.setAttribute("aria-pressed",j===idx?"true":"false");});
@@ -1034,7 +1035,7 @@ document.addEventListener("click",function(e){
   q.addEventListener("touchstart",function(e){sx=e.touches[0].clientX;},{passive:true});
   q.addEventListener("touchend",function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>40)show(idx+(dx<0?1:-1));});
   document.addEventListener("visibilitychange",function(){if(!sheet.hidden&&document.visibilityState==="visible"&&navigator.wakeLock&&!wake)try{navigator.wakeLock.request("screen").then(function(w){wake=w;}).catch(function(){});}catch(e){}});
-  fetch("qr/tickets.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){TK=Array.isArray(d)?d:[];render();}).catch(function(){list.innerHTML='<p class="fx-meta">票券資料讀取失敗，請重新整理。</p>';});
+  TK=Array.isArray(TICKETS_DATA)?TICKETS_DATA:[];render();
 })();
 
 /* ---------- 富士山能見度 ---------- */
