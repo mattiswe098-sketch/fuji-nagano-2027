@@ -125,6 +125,15 @@ h2.sec .dot svg{width:18px;height:18px}
 .fx-quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .fx-tax{display:flex;gap:6px;align-items:center;margin-top:10px;font-size:14px}
 .fx-meta{font-size:13px;margin:6px 0 0}
+.fj-wrap{overflow-x:auto}
+.fj{width:100%;border-collapse:collapse;font-size:14px;min-width:300px}
+.fj th,.fj td{padding:6px 4px;text-align:center;border-bottom:2px dashed var(--ink)}
+.fj th{font-size:13px}
+.fj td.d{text-align:left;white-space:nowrap}
+.fj .s{font-size:20px;line-height:1}
+.fj small{display:block;font-size:11px}
+.fj tr.trip td{background:var(--paper)}
+.fj .tg{display:inline-block;font-size:11px;border:2px solid var(--ink);border-radius:999px;padding:0 6px;background:var(--yellow);margin-left:4px}
 .fst{margin-top:10px;border:2px dashed var(--ink);border-radius:14px;padding:10px 12px;background:var(--paper)}
 .fst .fsh{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-weight:700}
 .fst .stp{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:1px 10px;font-size:13px;background:var(--paper)}
@@ -213,6 +222,7 @@ footer svg{width:120px;height:60px;display:block;margin:0 auto 6px}
       雪國之旅
     </a>
     <nav class="nav-links" aria-label="主選單">
+      <a href="#fuji">富士山</a>
       <a href="#flight">航班</a>
       <a href="#plan">每日行程</a>
       <a href="#rate">匯率</a>
@@ -305,6 +315,15 @@ footer svg{width:120px;height:60px;display:block;margin:0 auto 6px}
   <section id="overview" class="wrap">
     <h2 class="sec"><span class="dot" style="background:var(--green)"><svg viewBox="0 0 18 18"><path d="M2 14 L6 4 L11 11 L16 6" fill="none" stroke="#3E3A39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>全程路線</h2>
     <div id="ov"></div>
+  </section>
+
+  <section id="fuji" class="wrap">
+    <h2 class="sec"><span class="dot" style="background:var(--blue)"><svg viewBox="0 0 18 18"><path d="M1 15 L7 4 Q9 2 11 4 L17 15 Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/></svg></span>富士山能見度（7 天）</h2>
+    <div class="card ice">
+      <div id="fj-body" class="fj-wrap"><p class="fx-meta">讀取中…</p></div>
+      <p class="fx-meta">◎ 很有機會看到　○ 有機會　△ 不太容易　✕ 幾乎看不到｜早上 06–10 點、白天 10–16 點<br>用富士山周邊的低雲、中雲雲量、降水和能見度估算（資料：Open-Meteo），只是參考，不是官方預報。</p>
+      <div class="acts"><a class="btn nav" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=%E5%AF%8C%E5%A3%AB%E5%B1%B1+%E3%83%A9%E3%82%A4%E3%83%96%E3%82%AB%E3%83%A1%E3%83%A9">📹 富士山即時影像</a><a class="btn nav" target="_blank" rel="noopener" href="https://tenki.jp/mountain/famous100/5/25/150.html">🌤️ tenki.jp 富士山天氣</a></div>
+    </div>
   </section>
 
   <section id="flight" class="wrap">
@@ -904,6 +923,39 @@ document.addEventListener("click",function(e){
   try{navigator.clipboard.writeText(v).then(function(){done(true);},function(){sel(b);done(false);});}catch(err){sel(b);done(false);}
   function sel(btn){var el=btn.previousElementSibling;if(!el)return;var r=document.createRange();r.selectNodeContents(el);var s2=window.getSelection();s2.removeAllRanges();s2.addRange(r);}
 });
+/* ---------- 富士山能見度 ---------- */
+(function(){
+  var box=document.getElementById("fj-body");if(!box)return;
+  var TRIP={"2027-02-18":"河口湖","2027-02-19":"山中湖・富士宮","2027-02-20":"朝霧・本栖湖","2027-02-24":"婚紗拍攝"};
+  var url="https://api.open-meteo.com/v1/forecast?latitude=35.36,35.50&longitude=138.73,138.76&hourly=cloud_cover_low,cloud_cover_mid,precipitation,visibility&timezone=Asia%2FTokyo&forecast_days=7";
+  function grade(h,date,from,to){
+    var a=h[0].hourly,b=h[1].hourly,cl=[],pr=0,vis=99999;
+    for(var i=0;i<a.time.length;i++){
+      var t=a.time[i];if(t.slice(0,10)!==date)continue;var hr=+t.slice(11,13);if(hr<from||hr>=to)continue;
+      cl.push(Math.max(a.cloud_cover_low[i]||0,a.cloud_cover_mid[i]||0));
+      pr+=Math.max(a.precipitation[i]||0,b.precipitation[i]||0);
+      if(b.visibility[i]!=null)vis=Math.min(vis,b.visibility[i]);
+    }
+    if(!cl.length)return null;
+    var c=Math.round(cl.reduce(function(x,y){return x+y;},0)/cl.length), lv;
+    lv=c<30?0:c<60?1:c<80?2:3;
+    if(pr>=1)lv=3;else if(pr>=0.2)lv=Math.max(lv,2);
+    if(vis<5000)lv=Math.min(3,lv+1);
+    return {s:["◎","○","△","✕"][lv],c:c};
+  }
+  var wk=["日","一","二","三","四","五","六"];
+  fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(h){
+    if(!Array.isArray(h)||h.length<2)throw 0;
+    var days=[];h[0].hourly.time.forEach(function(t){var d=t.slice(0,10);if(days.indexOf(d)<0)days.push(d);});
+    var rows=days.map(function(d){
+      var m=grade(h,d,6,10),n=grade(h,d,10,16),dt=new Date(d+"T00:00:00Z"),lab=(dt.getUTCMonth()+1)+"/"+dt.getUTCDate()+"（"+wk[dt.getUTCDay()]+"）";
+      function cell(g){return g?'<span class="s">'+g.s+'</span><small>雲 '+g.c+'%</small>':'<small>—</small>';}
+      return '<tr'+(TRIP[d]?' class="trip"':'')+'><td class="d">'+lab+(TRIP[d]?'<span class="tg">行程日・'+esc(TRIP[d])+'</span>':'')+'</td><td>'+cell(m)+'</td><td>'+cell(n)+'</td></tr>';
+    }).join("");
+    box.innerHTML='<table class="fj"><thead><tr><th style="text-align:left">日期</th><th>早上 06–10</th><th>白天 10–16</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  }).catch(function(){box.innerHTML='<p class="fx-meta">暫時抓不到預報，請用下方按鈕查看。</p>';});
+})();
+
 /* ---------- 匯率 ---------- */
 (function(){
   var rateEl=document.getElementById("fx-rate"),meta=document.getElementById("fx-meta"),jpy=document.getElementById("fx-jpy"),twd=document.getElementById("fx-twd"),tax=document.getElementById("fx-tax");
