@@ -1,12 +1,12 @@
 /* 富士長野雪國之旅：離線快取 */
-var VER="v2-2026-11-24";
+var VER="v3-2026-11-24";
 var CORE=["./","index.html","apple-touch-icon.png","favicon-32.png","icon-512.png","qr/tickets.json"];
 self.addEventListener("install",function(e){
   e.waitUntil(caches.open(VER).then(function(c){
-    return c.addAll(CORE).then(function(){
+    return c.addAll(CORE.map(function(u){return new Request(u,{cache:"reload"});})).then(function(){
       return fetch("qr/tickets.json",{cache:"no-store"}).then(function(r){return r.json();}).then(function(t){
         var imgs=[];(t||[]).forEach(function(k){(k.users||[]).forEach(function(u){if(u.qrimg)imgs.push(u.qrimg);});});
-        return c.addAll(imgs);
+        return c.addAll(imgs.map(function(u){return new Request(u,{cache:"reload"});}));
       }).catch(function(){});
     });
   }));
@@ -18,7 +18,7 @@ self.addEventListener("activate",function(e){
 function netFirst(req,key){
   return caches.open(VER).then(function(c){
     var timeout=new Promise(function(res){setTimeout(function(){res(null);},4000);});
-    var net=fetch(req).then(function(r){if(r&&r.ok)c.put(key||req,r.clone());return r;});
+    var net=fetch(req.mode==="navigate"?new Request(req.url,{cache:"no-cache",credentials:"same-origin"}):req,{cache:"no-cache"}).then(function(r){if(r&&r.ok)c.put(key||req,r.clone());return r;});
     return Promise.race([net.catch(function(){return null;}),timeout]).then(function(r){
       if(r)return r;
       return c.match(key||req,{ignoreSearch:true}).then(function(m){return m||net;});
