@@ -800,7 +800,7 @@ var FLIGHTS={
 function fmtTW(iso){try{var d=new Date(iso);if(isNaN(d))return "";var t=new Date(d.getTime()+8*3600e3);return (t.getUTCMonth()+1)+"/"+t.getUTCDate()+" "+String(t.getUTCHours()).padStart(2,"0")+":"+String(t.getUTCMinutes()).padStart(2,"0");}catch(e){return "";}}
 function renderFlight(code,data,note){
   var el=document.querySelector('.fst[data-f="'+code+'"]');if(!el)return;var f=FLIGHTS[code];
-  var lv="info",st="即時查詢",body="點下方按鈕查詢即時起降狀態（出發當天 "+f.when+"，台灣時間）。",meta="";
+  var lv="info",st="尚未開始",body="出發當天（"+f.when+"，台灣時間）每小時自動更新到這裡；現在可以先點下方按鈕查詢。",meta="";
   if(data){
     lv=({ok:1,warn:1,bad:1,info:1}[data.level])?data.level:"info";
     st=String(data.status||"已更新");
@@ -821,6 +821,13 @@ function renderFlight(code,data,note){
   el.innerHTML=h+'</div>';
 }
 Object.keys(FLIGHTS).forEach(function(c){renderFlight(c,null);});
+/* 排程任務每小時把查到的狀態寫進 flights.json，這裡每 10 分鐘讀一次 */
+function loadFlights(){
+  fetch("flights.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
+    Object.keys(FLIGHTS).forEach(function(c){renderFlight(c,d&&d[c]?d[c]:null);});
+  }).catch(function(){});
+}
+loadFlights();setInterval(loadFlights,600000);
 var OVERVIEW={"W": 400, "H": 382, "bg": "#DCEAF3", "lands": ["M0.0 8.0 L400.0 8.0 L400.0 255.2 L392.6 310.1 L351.1 355.9 L325.9 374.2 L306.7 374.2 L308.1 328.5 L325.9 282.7 L340.7 258.9 L312.6 244.2 L297.8 264.4 L283.0 282.7 L287.4 310.1 L277.0 335.8 L262.2 313.8 L232.6 308.3 L207.4 321.1 L197.0 346.8 L191.1 374.2 L155.6 374.2 L164.4 350.4 L140.7 343.1 L114.1 355.9 L96.3 374.2 L0.0 374.2Z"], "lakes": ["M138.6 273.9 a9.0 3.5 0 1 0 18.0 0 a9.0 3.5 0 1 0 -18.0 0Z", "M42.4 172.8 a8.0 5.0 0 1 0 16.0 0 a8.0 5.0 0 1 0 -16.0 0Z"], "fuji": [145.2, 305.2, "富士山", "", "end"], "hills": [[60, 120, 18], [96, 80, 16], [40, 200, 14]], "segs": [["M400.0 330.0 Q365.7 279.6 391.1 224.1", "fly", "#7FA3C8"], ["M391.1 224.1 Q332.1 221.4 277.0 242.4", "rail", "#3F5A80"], ["M277.0 242.4 Q211.2 246.4 149.6 269.9", "dash", "#8A5BB0"], ["M149.6 269.9 Q162.2 275.1 165.9 288.2", "car", "#B5473A"], ["M165.9 288.2 Q179.9 294.7 180.7 310.1", "car", "#B5473A"], ["M180.7 310.1 Q163.0 346.3 128.9 324.8", "car", "#B5473A"], ["M128.9 324.8 Q107.4 239.6 50.4 172.8", "car", "#B5473A"], ["M50.4 172.8 Q36.2 158.1 32.6 138.0", "car", "#B5473A"], ["M32.6 138.0 Q36.1 95.7 65.2 64.8", "car", "#B5473A"], ["M65.2 64.8 Q78.7 47.5 100.7 48.3", "car", "#B5473A"], ["M100.7 48.3 Q87.2 65.6 65.2 64.8", "car", "#B5473A"], ["M65.2 64.8 Q201.5 122.5 303.7 229.6", "rail", "#9AA7AE"], ["M303.7 229.6 Q219.1 222.1 165.9 288.2", "walk", "#D08A3C"], ["M303.7 229.6 Q346.5 212.9 391.1 224.1", "rail", "#3F5A80"], ["M391.1 224.1 Q415.5 290.7 400.0 360.0", "fly", "#7FA3C8"]], "nodes": [[277.0, 242.4, "n", "1", [263.0, 262.4, "end"], "新宿", "2/16–17"], [149.6, 269.9, "n", "2", [137.6, 263.9, "end"], "河口湖", "2/18"], [128.9, 324.8, "n", "3", [114.9, 329.8, "end"], "富士宮", "2/19"], [32.6, 138.0, "n", "4", [46.6, 143.0, "start"], "松本", "2/20"], [100.7, 48.3, "n", "5", [114.7, 53.3, "start"], "澀溫泉", "2/21"], [65.2, 64.8, "n", "6", [51.2, 69.8, "end"], "長野", "2/22"], [303.7, 229.6, "n", "7", [303.7, 199.6, "middle"], "上野", "2/23–24"], [391.1, 224.1, "ref", "", [385.1, 212.1, "end"], "成田", ""]], "notes": [[300, 320, "✈ 2/16 抵達・2/25 回台灣", "middle"], [332, 262, "太平洋", "middle"], [160, 354, "駿河灣", "middle"]], "legend": [["", "num", "1", "新宿 APA 2/16–17"], ["", "num", "2", "河口湖 秀峰閣湖月 2/18"], ["", "num", "3", "富士宮富士急 2/19"], ["", "num", "4", "Celecton 松本 2/20"], ["", "num", "5", "澀溫泉 山崎屋 2/21"], ["", "num", "6", "Livemax 長野 2/22"], ["", "num", "7", "京成上野 APA 2/23–24"], ["自駕", "car", "#B5473A", "2/18 河口湖取車 → 2/22 長野還車"], ["電車", "rail", "#9AA7AE", "2/23 淺間號 長野→上野"], ["一日遊", "walk", "#D08A3C", "2/24 包車去山中湖、河口湖拍婚紗"]], "cap": "依大約經緯度繪製，北方朝上。海岸線是簡化形狀。"};
 try{document.getElementById("ov").innerHTML=mapBoard({d:"全程",map:OVERVIEW});}catch(e){}
 /* 天氣 */
