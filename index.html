@@ -143,6 +143,29 @@ h2.sec .dot svg{width:18px;height:18px}
 .fj small{display:block;font-size:11px}
 .fj tr.trip td{background:var(--paper)}
 .fj .tg{display:inline-block;font-size:11px;border:2px solid var(--ink);border-radius:999px;padding:0 6px;background:var(--yellow);margin-left:4px}
+.tk-day{font-size:14px;font-weight:700;margin:14px 0 6px;display:flex;align-items:center;gap:6px}
+.tk-day::before{content:"";width:11px;height:11px;border-radius:50%;background:var(--yellow);border:2px solid var(--ink)}
+.tk-card{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:var(--line);border-radius:18px;padding:10px 12px;margin-bottom:8px;background:var(--ice);cursor:pointer}
+.tk-card.off{background:var(--paper);border-style:dashed;opacity:.6;cursor:default}
+.tk-card.used{background:#EEE;opacity:.7}
+.tk-ic{width:42px;height:42px;border-radius:12px;border:2px solid var(--ink);background:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none}
+.tk-card b{display:block;font-size:15px}.tk-card small{font-size:12px;opacity:.8}
+.tk-card .tk-txt{min-width:0}
+.tk-cnt{margin-left:auto;font-size:12px;border:2px solid var(--ink);border-radius:999px;padding:1px 8px;background:#fff;white-space:nowrap;flex:none}
+.tk-sheet{position:fixed;inset:0;z-index:100;background:rgba(62,58,57,.45);display:flex;align-items:flex-end}
+.tk-pane{position:relative;width:100%;max-width:520px;margin:0 auto;max-height:calc(100% - 30px - env(safe-area-inset-top,0px));overflow-y:auto;background:#fff;color:#3E3A39;border-radius:26px 26px 0 0;border:3px solid #3E3A39;border-bottom:0;padding:18px max(18px,env(safe-area-inset-left,0px)) calc(24px + env(safe-area-inset-bottom,0px));text-align:center}
+.tk-x{position:absolute;right:14px;top:12px;width:40px;height:40px;border-radius:50%;border:2px solid #3E3A39;background:#FFFCF6;font-size:18px;cursor:pointer}
+.tk-pane h3{margin:8px 44px 2px;font-size:19px}.tk-pane p{margin:0;font-size:13px}
+.tk-qr{margin:16px auto 8px;width:min(270px,75vw);aspect-ratio:1;border:3px solid #3E3A39;border-radius:16px;padding:6px;background:#fff;max-width:100%}
+.tk-qr img{width:100%;height:100%;image-rendering:pixelated;display:block}
+.tk-who{font-size:20px;font-weight:700}
+.tk-dots{display:flex;gap:6px;justify-content:center;margin:6px 0 12px}.tk-dots i{width:8px;height:8px;border-radius:50%;background:#ccc}.tk-dots i.on{background:#3E3A39}
+.tk-seg{display:flex;border:3px solid #3E3A39;border-radius:999px;overflow:hidden;margin:0 6px}
+.tk-seg button{flex:1;padding:10px 0;font-size:16px;font-weight:700;border:0;background:#fff;cursor:pointer}
+.tk-seg button.on{background:#F6D27A}.tk-seg button+button{border-left:3px solid #3E3A39}
+.tk-tip{font-size:12px !important;margin-top:12px !important;line-height:1.6}
+.tk-used{margin-top:10px;font-size:13px;border:2px solid #3E3A39;border-radius:999px;padding:5px 14px;background:#B9DAA5;cursor:pointer}
+.tk-used.done{background:#EEE}
 .fst{margin-top:10px;border:2px dashed var(--ink);border-radius:14px;padding:10px 12px;background:var(--paper)}
 .fst .fsh{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-weight:700}
 .fst .stp{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:1px 10px;font-size:13px;background:var(--paper)}
@@ -233,6 +256,7 @@ footer svg{width:120px;height:60px;display:block;margin:0 auto 6px}
     <nav class="nav-links" aria-label="主選單">
       <a href="#fuji">富士山</a>
       <a href="#flight">航班</a>
+      <a href="#tickets">票券</a>
       <a href="#plan">每日行程</a>
       <a href="#rate">匯率</a>
       <a href="#hotel">住宿</a>
@@ -372,6 +396,24 @@ footer svg{width:120px;height:60px;display:block;margin:0 auto 6px}
   </section>
 
   <!-- 每日行程 -->
+  <section id="tickets" class="wrap">
+    <h2 class="sec"><span class="dot" style="background:var(--coral)"><svg viewBox="0 0 18 18"><rect x="2" y="4" width="14" height="10" rx="2" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/><path d="M11 4 V14" stroke="#3E3A39" stroke-width="1.6" stroke-dasharray="2 2"/></svg></span>票券 QR Code</h2>
+    <p class="muted" style="margin:0 0 6px">點票券就會跳出 QR Code，給驗票人員掃描。</p>
+    <div id="tk-list"><p class="fx-meta">讀取中…</p></div>
+  </section>
+  <div class="tk-sheet" id="tk-sheet" hidden role="dialog" aria-modal="true" aria-labelledby="tk-title">
+    <div class="tk-pane">
+      <button type="button" class="tk-x" id="tk-close" aria-label="關閉">✕</button>
+      <h3 id="tk-title"></h3><p id="tk-sub"></p>
+      <div class="tk-qr" id="tk-qr"><img id="tk-img" alt=""></div>
+      <div class="tk-who" id="tk-who"></div>
+      <div class="tk-dots" id="tk-dots"></div>
+      <div class="tk-seg" id="tk-seg"></div>
+      <p class="tk-tip">左右滑動也可以切換・打開時螢幕不會自動變暗<br>掃描前記得把螢幕亮度調高</p>
+      <button type="button" class="tk-used" id="tk-used"></button>
+    </div>
+  </div>
+
   <section id="plan" class="wrap">
     <h2 class="sec"><span class="dot" style="background:var(--coral)"><svg viewBox="0 0 18 18"><rect x="2" y="3" width="14" height="13" rx="3" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2"/><line x1="2" y1="7" x2="16" y2="7" stroke="#3E3A39" stroke-width="2"/></svg></span>每日行程</h2>
     <div class="days" id="days" role="tablist" aria-label="選擇日期"></div>
@@ -932,6 +974,64 @@ document.addEventListener("click",function(e){
   try{navigator.clipboard.writeText(v).then(function(){done(true);},function(){sel(b);done(false);});}catch(err){sel(b);done(false);}
   function sel(btn){var el=btn.previousElementSibling;if(!el)return;var r=document.createRange();r.selectNodeContents(el);var s2=window.getSelection();s2.removeAllRanges();s2.addRange(r);}
 });
+/* ---------- 票券 QR Code ---------- */
+(function(){
+  var list=document.getElementById("tk-list"),sheet=document.getElementById("tk-sheet");if(!list||!sheet)return;
+  var PLAN=[
+    {date:"2027-02-16",icon:"🚆",name:"Skyliner 成田→日暮里",sub:"刷臉乘車"},
+    {date:"2027-02-17",icon:"🏙️",name:"SHIBUYA SKY 16:40",sub:"入場券"},
+    {date:"2027-02-18",icon:"🚌",name:"高速巴士 Busta 新宿→河口湖",sub:"06:45"},
+    {date:"2027-02-23",icon:"🚄",name:"淺間號 長野→上野",sub:"09:00"},
+    {date:"2027-02-25",icon:"🚆",name:"Skyliner 京成上野→成田",sub:"指定班次"}
+  ];
+  var wk=["日","一","二","三","四","五","六"], TK=[], cur=null, idx=0, wake=null, lastFocus=null;
+  function lab(d){var t=new Date(d+"T00:00:00Z");return (t.getUTCMonth()+1)+"/"+t.getUTCDate()+"（"+wk[t.getUTCDay()]+"）";}
+  function usedKey(t,i){return "tkUsed_"+t.id+"_"+i;}
+  function isUsed(t,i){return store(usedKey(t,i))==="1";}
+  function render(){
+    var items=TK.map(function(t){return {real:t,date:t.date};});
+    PLAN.forEach(function(p){if(!TK.some(function(t){return t.date===p.date&&t.name.indexOf(p.name.split(" ")[0])>=0;}))items.push({plan:p,date:p.date});});
+    items.sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:0;});
+    var h="",last="";
+    items.forEach(function(it){
+      if(it.date!==last){h+='<div class="tk-day">'+lab(it.date)+'</div>';last=it.date;}
+      if(it.real){var t=it.real,n=t.users.length,u=t.users.filter(function(x,i){return isUsed(t,i);}).length;
+        h+='<button type="button" class="tk-card'+(u===n?' used':'')+'" data-tk="'+esc(t.id)+'"><span class="tk-ic">'+esc(t.icon||"🎫")+'</span><span class="tk-txt"><b>'+esc(t.name)+'</b><small>'+esc(t.sub||"")+'</small></span><span class="tk-cnt">'+(u?u+'/'+n+' 已用':n+' 張')+'</span></button>';}
+      else{var p=it.plan;h+='<div class="tk-card off"><span class="tk-ic">'+esc(p.icon)+'</span><span class="tk-txt"><b>'+esc(p.name)+'</b><small>'+esc(p.sub)+'</small></span><span class="tk-cnt">還沒傳</span></div>';}
+    });
+    list.innerHTML=h;
+  }
+  function show(i){
+    var t=cur,n=t.users.length;idx=(i+n)%n;var u=t.users[idx];
+    document.getElementById("tk-img").src=u.qrimg;document.getElementById("tk-img").alt=t.name+" "+u.label+" QR Code";
+    document.getElementById("tk-who").textContent=u.label;
+    document.getElementById("tk-dots").innerHTML=t.users.map(function(x,j){return '<i class="'+(j===idx?'on':'')+'"></i>';}).join("");
+    Array.prototype.forEach.call(document.querySelectorAll("#tk-seg button"),function(b,j){b.classList.toggle("on",j===idx);b.setAttribute("aria-pressed",j===idx?"true":"false");});
+    var ub=document.getElementById("tk-used"),used=isUsed(t,idx);ub.textContent=used?"↺ 取消已使用標記":"✓ 標記已使用";ub.classList.toggle("done",used);
+  }
+  function open(id){
+    cur=TK.filter(function(t){return t.id===id;})[0];if(!cur)return;lastFocus=document.activeElement;
+    document.getElementById("tk-title").textContent=(cur.icon?cur.icon+" ":"")+cur.name;
+    var dt=new Date(cur.date+"T00:00:00Z");document.getElementById("tk-sub").textContent=cur.date.replace(/-/g,"/")+"（"+wk[dt.getUTCDay()]+"）"+(cur.time?" "+cur.time:"")+(cur.note?"｜"+cur.note:"");
+    document.getElementById("tk-seg").innerHTML=cur.users.map(function(u,j){return '<button type="button" data-u="'+j+'">'+esc(u.label)+'</button>';}).join("");
+    document.getElementById("tk-seg").hidden=cur.users.length<2;
+    sheet.hidden=false;document.body.style.overflow="hidden";show(0);document.getElementById("tk-close").focus();
+    try{if(navigator.wakeLock)navigator.wakeLock.request("screen").then(function(w){wake=w;}).catch(function(){});}catch(e){}
+  }
+  function close(){sheet.hidden=true;document.body.style.overflow="";try{if(wake)wake.release();}catch(e){}wake=null;render();if(lastFocus)try{lastFocus.focus();}catch(e){}}
+  list.addEventListener("click",function(e){var b=e.target.closest("[data-tk]");if(b)open(b.getAttribute("data-tk"));});
+  document.getElementById("tk-close").addEventListener("click",close);
+  sheet.addEventListener("click",function(e){if(e.target===sheet)close();});
+  document.addEventListener("keydown",function(e){if(sheet.hidden)return;if(e.key==="Escape")close();else if(e.key==="ArrowRight")show(idx+1);else if(e.key==="ArrowLeft")show(idx-1);});
+  document.getElementById("tk-seg").addEventListener("click",function(e){var b=e.target.closest("[data-u]");if(b)show(+b.getAttribute("data-u"));});
+  document.getElementById("tk-used").addEventListener("click",function(){var k=usedKey(cur,idx);if(isUsed(cur,idx)){try{localStorage.removeItem(k);}catch(e){}}else store(k,"1");show(idx);});
+  var sx=null;var q=document.getElementById("tk-qr");
+  q.addEventListener("touchstart",function(e){sx=e.touches[0].clientX;},{passive:true});
+  q.addEventListener("touchend",function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>40)show(idx+(dx<0?1:-1));});
+  document.addEventListener("visibilitychange",function(){if(!sheet.hidden&&document.visibilityState==="visible"&&navigator.wakeLock&&!wake)try{navigator.wakeLock.request("screen").then(function(w){wake=w;}).catch(function(){});}catch(e){}});
+  fetch("qr/tickets.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){TK=Array.isArray(d)?d:[];render();}).catch(function(){list.innerHTML='<p class="fx-meta">票券資料讀取失敗，請重新整理。</p>';});
+})();
+
 /* ---------- 富士山能見度 ---------- */
 (function(){
   var box=document.getElementById("fj-body");if(!box)return;
@@ -1096,7 +1196,7 @@ renderTodo();
 var links=document.querySelectorAll(".nav-links a");
 if("IntersectionObserver" in window){
   var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){links.forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+en.target.id);});}});},{rootMargin:"-45% 0px -50% 0px"});
-  ["flight","plan","hotel","todo","more"].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});
+  ["fuji","flight","tickets","plan","rate","hotel","todo","more"].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});
 }
 })();
 </script>

@@ -1,5 +1,27 @@
 [
- {"id":"jigokudani","name":"地獄谷野猿公苑 入苑券","date":"2027-02-22","time":"09:00","source":"Webket","note":"Web入苑券 一般大人 ¥880","purchased":"2026-11-24",
-  "users":[{"label":"使用者1","qr":"20261124088002012210221304010200206210710","img":"qr/jigokudani_p1.png"},
-           {"label":"使用者2","qr":"20261124088002022210221304010200906210710","img":"qr/jigokudani_p2.png"}]}
+ {
+  "id": "jigokudani",
+  "name": "地獄谷野猿公苑 入苑券",
+  "date": "2027-02-22",
+  "time": "09:00",
+  "source": "Webket",
+  "note": "Web入苑券 一般大人 ¥880",
+  "purchased": "2026-11-24",
+  "users": [
+   {
+    "label": "使用者 1",
+    "qr": "20261124088002012210221304010200206210710",
+    "img": "qr/jigokudani_p1.png",
+    "qrimg": "qr/jigokudani_u1.png"
+   },
+   {
+    "label": "使用者 2",
+    "qr": "20261124088002022210221304010200906210710",
+    "img": "qr/jigokudani_p2.png",
+    "qrimg": "qr/jigokudani_u2.png"
+   }
+  ],
+  "icon": "🐒",
+  "sub": "09:00｜Webket｜一般大人 ¥880"
+ }
 ]
