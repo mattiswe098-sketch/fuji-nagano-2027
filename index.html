@@ -130,7 +130,11 @@ h2.sec .dot svg{width:18px;height:18px}
 .fj th,.fj td{padding:6px 4px;text-align:center;border-bottom:2px dashed var(--ink)}
 .fj th{font-size:13px}
 .fj td.d{text-align:left;white-space:nowrap}
-.fj .s{font-size:20px;line-height:1}
+.fj .s{display:block;line-height:0}
+.fj .s svg{width:44px;height:35px}
+.fj-legends{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:10px;font-size:13px}
+.fj-lg{display:inline-flex;align-items:center;gap:3px}
+.fj-lg svg{width:30px;height:24px}
 .fj small{display:block;font-size:11px}
 .fj tr.trip td{background:var(--paper)}
 .fj .tg{display:inline-block;font-size:11px;border:2px solid var(--ink);border-radius:999px;padding:0 6px;background:var(--yellow);margin-left:4px}
@@ -321,7 +325,7 @@ footer svg{width:120px;height:60px;display:block;margin:0 auto 6px}
     <h2 class="sec"><span class="dot" style="background:var(--blue)"><svg viewBox="0 0 18 18"><path d="M1 15 L7 4 Q9 2 11 4 L17 15 Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/></svg></span>富士山能見度（7 天）</h2>
     <div class="card ice">
       <div id="fj-body" class="fj-wrap"><p class="fx-meta">讀取中…</p></div>
-      <p class="fx-meta">◎ 很有機會看到　○ 有機會　△ 不太容易　✕ 幾乎看不到｜早上 06–10 點、白天 10–16 點<br>用富士山周邊的低雲、中雲雲量、降水和能見度估算（資料：Open-Meteo），只是參考，不是官方預報。</p>
+      <div class="fj-legends" id="fj-legend"></div><p class="fx-meta">早上 06–10 點、白天 10–16 點<br>用富士山周邊的低雲、中雲雲量、降水和能見度估算（資料：Open-Meteo），只是參考，不是官方預報。</p>
       <div class="acts"><a class="btn nav" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=%E5%AF%8C%E5%A3%AB%E5%B1%B1+%E3%83%A9%E3%82%A4%E3%83%96%E3%82%AB%E3%83%A1%E3%83%A9">📹 富士山即時影像</a><a class="btn nav" target="_blank" rel="noopener" href="https://tenki.jp/mountain/famous100/5/25/150.html">🌤️ tenki.jp 富士山天氣</a></div>
     </div>
   </section>
@@ -941,15 +945,29 @@ document.addEventListener("click",function(e){
     lv=c<30?0:c<60?1:c<80?2:3;
     if(pr>=1)lv=3;else if(pr>=0.2)lv=Math.max(lv,2);
     if(vis<5000)lv=Math.min(3,lv+1);
-    return {s:["◎","○","△","✕"][lv],c:c};
+    return {lv:lv,c:c};
   }
+  function fujiIcon(lv){
+    var ink="#3E3A39";
+    function cloud(x,y,s){return '<path transform="translate('+x+' '+y+') scale('+s+')" d="M5 14 A4.5 4.5 0 0 1 4.2 5.2 A6 6 0 0 1 15.4 3.8 A4.8 4.8 0 0 1 21 9.4 A2.4 2.4 0 0 1 20.2 14 Z" fill="#fff" stroke="'+ink+'" stroke-width="'+(1.5/s)+'" stroke-linejoin="round"/>';}
+    var mt='<path d="M3 30 L16 9 Q20 4 24 9 L37 30 Z" fill="#A8D3E6" stroke="'+ink+'" stroke-width="2" stroke-linejoin="round"/><path d="M12.6 14.5 L16 9 Q20 4 24 9 L27.4 14.5 L24.5 13 L22.2 15.6 L20 13 L17.8 15.6 L15.5 13 Z" fill="#fff" stroke="'+ink+'" stroke-width="1.4" stroke-linejoin="round"/>';
+    var g="";
+    if(lv===0)g='<circle cx="34" cy="7" r="4" fill="#F6D27A" stroke="'+ink+'" stroke-width="1.4"/>'+mt;
+    else if(lv===1)g=mt+cloud(22,17,0.72);
+    else if(lv===2)g=mt+cloud(2,15,0.85)+cloud(17,13,0.95);
+    else g='<path d="M3 30 L16 9 Q20 4 24 9 L37 30 Z" fill="none" stroke="#9AA7AE" stroke-width="1.6" stroke-dasharray="3 3"/>'+cloud(1,4,0.9)+cloud(16,1,1)+cloud(5,15,1.2);
+    return '<svg viewBox="0 0 40 32" width="40" height="32" aria-hidden="true">'+g+'</svg>';
+  }
+  var FJ_LAB=["很有機會","有機會","不太容易","幾乎看不到"];
+  var lg=document.getElementById("fj-legend");
+  if(lg)lg.innerHTML=FJ_LAB.map(function(l,i){return '<span class="fj-lg">'+fujiIcon(i)+l+'</span>';}).join("");
   var wk=["日","一","二","三","四","五","六"];
   fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(h){
     if(!Array.isArray(h)||h.length<2)throw 0;
     var days=[];h[0].hourly.time.forEach(function(t){var d=t.slice(0,10);if(days.indexOf(d)<0)days.push(d);});
     var rows=days.map(function(d){
       var m=grade(h,d,6,10),n=grade(h,d,10,16),dt=new Date(d+"T00:00:00Z"),lab=(dt.getUTCMonth()+1)+"/"+dt.getUTCDate()+"（"+wk[dt.getUTCDay()]+"）";
-      function cell(g){return g?'<span class="s">'+g.s+'</span><small>雲 '+g.c+'%</small>':'<small>—</small>';}
+      function cell(g){return g?'<span class="s" role="img" aria-label="'+FJ_LAB[g.lv]+'">'+fujiIcon(g.lv)+'</span><small>'+FJ_LAB[g.lv]+'・雲 '+g.c+'%</small>':'<small>—</small>';}
       return '<tr'+(TRIP[d]?' class="trip"':'')+'><td class="d">'+lab+(TRIP[d]?'<span class="tg">行程日・'+esc(TRIP[d])+'</span>':'')+'</td><td>'+cell(m)+'</td><td>'+cell(n)+'</td></tr>';
     }).join("");
     box.innerHTML='<table class="fj"><thead><tr><th style="text-align:left">日期</th><th>早上 06–10</th><th>白天 10–16</th></tr></thead><tbody>'+rows+'</tbody></table>';
