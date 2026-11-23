@@ -166,6 +166,7 @@ h2.sec .dot svg{width:18px;height:18px}
 .tk-tip{font-size:12px !important;margin-top:12px !important;line-height:1.6}
 .tk-used{margin-top:10px;font-size:13px;border:2px solid #3E3A39;border-radius:999px;padding:5px 14px;background:#B9DAA5;cursor:pointer}
 .tk-used.done{background:#EEE}
+.upd{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:120;display:flex;gap:10px;align-items:center;background:var(--butter);border:var(--line);border-radius:999px;padding:6px 8px 6px 16px;font-size:14px;box-shadow:0 4px 0 var(--ink);max-width:calc(100% - 32px)}
 .fst{margin-top:10px;border:2px dashed var(--ink);border-radius:14px;padding:10px 12px;background:var(--paper)}
 .fst .fsh{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-weight:700}
 .fst .stp{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:1px 10px;font-size:13px;background:var(--paper)}
@@ -916,7 +917,7 @@ function liveFlight(code,force){
   fetch("https://airlabs.co/api/v9/flight?flight_iata="+FL_IATA[code]+"&api_key="+AIRLABS_KEY).then(function(r){return r.json();}).then(function(j){
     if(!j||!j.response||j.error)throw 0;
     var d=toData(j.response);try{store(ck,JSON.stringify({t:Date.now(),d:d}));}catch(e){}renderFlight(code,d);
-  }).catch(function(){renderFlight(code,c?c.d:null,"暫時查不到，請用下方按鈕查詢");});
+  }).catch(function(){renderFlight(code,c?c.d:null,navigator.onLine===false?(c?"📴 離線中，顯示上次查到的資料":"📴 離線中，有網路時再查"):"暫時查不到，請用下方按鈕查詢");});
 }
 Object.keys(FLIGHTS).forEach(function(c){liveFlight(c,false);});
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-fl]");if(!b)return;var k="fl_"+b.getAttribute("data-fl");try{localStorage.removeItem(k);}catch(x){}liveFlight(b.getAttribute("data-fl"),true);});
@@ -925,12 +926,14 @@ try{document.getElementById("ov").innerHTML=mapBoard({d:"全程",map:OVERVIEW});
 /* 天氣 */
 var WX={0:["☀️","晴"],1:["🌤️","大致晴"],2:["⛅","晴時多雲"],3:["☁️","陰"],45:["🌫️","霧"],48:["🌫️","霧凇"],51:["🌦️","毛毛雨"],53:["🌦️","毛毛雨"],55:["🌧️","毛毛雨"],56:["🌧️","凍毛毛雨"],57:["🌧️","凍毛毛雨"],61:["🌧️","小雨"],63:["🌧️","雨"],65:["🌧️","大雨"],66:["🌧️","凍雨"],67:["🌧️","凍雨"],71:["🌨️","小雪"],73:["🌨️","下雪"],75:["❄️","大雪"],77:["🌨️","雪粒"],80:["🌦️","陣雨"],81:["🌧️","陣雨"],82:["⛈️","強陣雨"],85:["🌨️","陣雪"],86:["❄️","大陣雪"],95:["⛈️","雷雨"],96:["⛈️","雷雨冰雹"],99:["⛈️","雷雨冰雹"]};
 var wxCache={};
+function savedAt(t){var d=new Date(t+8*3600e3);return (d.getUTCMonth()+1)+"/"+d.getUTCDate()+" "+pad(d.getUTCHours())+":"+pad(d.getUTCMinutes());}
+function offNote(t){return '<div class="lbl" style="font-size:12px;margin-top:4px">📴 離線中・顯示 '+savedAt(t)+'（台灣時間）抓到的資料</div>';}
 function wxLink(w){var q=w.q||w.n.replace(/・.*/,"");return '<div class="acts"><a class="btn nav" target="_blank" rel="noopener" href="https://www.google.com/search?q='+encodeURIComponent(q+" 天氣")+'">🌤️ 查看'+esc(q)+'即時天氣</a></div>';}
 function loadWx(i){
   var day=DAYS[i], box=document.getElementById("wx-body");
   if(!box)return;
   var w=day.wx, key=w.lat+","+w.lon, pr=day.d.split("/"), date="2027-"+pad(+pr[0])+"-"+pad(+pr[1]);
-  function show(data){
+  function show(data,off){
     if(+(store("tripDay")||0)!==i)return;
     var html="", idx=data.daily&&data.daily.time?data.daily.time.indexOf(date):-1;
     if(idx>=0){
@@ -940,13 +943,15 @@ function loadWx(i){
       var cc=WX[data.current.weather_code]||["🌡️",""];
       html='<div class="wx"><span class="big">'+cc[0]+'</span><div><div class="lbl">'+esc(w.n)+'・現在天氣</div><div class="tt">'+Math.round(data.current.temperature_2m)+'°C <small style="font-size:14px">（今日 '+Math.round(data.daily.temperature_2m_max[0])+'° / '+Math.round(data.daily.temperature_2m_min[0])+'°）</small></div><div class="lbl">'+cc[1]+'｜出發前 16 天內會改顯示當天預報</div></div></div>';
     }
-    box.innerHTML=html+'<div class="wx-ref">'+esc(w.ref)+'</div>'+wxLink(w);
+    box.innerHTML=html+(off?offNote(off):'')+'<div class="wx-ref">'+esc(w.ref)+'</div>'+wxLink(w);
   }
   if(wxCache[key]){show(wxCache[key]);return;}
   box.innerHTML='<div class="lbl">'+esc(w.n)+' 天氣讀取中…</div><div class="wx-ref">'+esc(w.ref)+'</div>'+wxLink(w);
   var url="https://api.open-meteo.com/v1/forecast?latitude="+w.lat+"&longitude="+w.lon+"&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=16";
-  fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){wxCache[key]=d;show(d);}).catch(function(){
+  fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){wxCache[key]=d;try{store("wx_"+key,JSON.stringify({t:Date.now(),d:d}));}catch(e){}show(d);}).catch(function(){
     if(+(store("tripDay")||0)!==i)return;
+    var sv=null;try{sv=JSON.parse(store("wx_"+key)||"null");}catch(e){}
+    if(sv&&sv.d){show(sv.d,sv.t);return;}
     box.innerHTML='<div class="lbl">'+esc(w.n)+'：點下方按鈕查看即時天氣與一週預報</div><div class="wx-ref">'+esc(w.ref)+'</div>'+wxLink(w);
   });
 }
@@ -1067,16 +1072,23 @@ document.addEventListener("click",function(e){
   var lg=document.getElementById("fj-legend");
   if(lg)lg.innerHTML=FJ_LAB.map(function(l,i){return '<span class="fj-lg">'+fujiIcon(i)+l+'</span>';}).join("");
   var wk=["日","一","二","三","四","五","六"];
-  fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(h){
-    if(!Array.isArray(h)||h.length<2)throw 0;
+  function draw(h,off){
     var days=[];h[0].hourly.time.forEach(function(t){var d=t.slice(0,10);if(days.indexOf(d)<0)days.push(d);});
     var rows=days.map(function(d){
       var m=grade(h,d,6,10),n=grade(h,d,10,16),dt=new Date(d+"T00:00:00Z"),lab=(dt.getUTCMonth()+1)+"/"+dt.getUTCDate()+"（"+wk[dt.getUTCDay()]+"）";
       function cell(g){return g?'<span class="s" role="img" aria-label="'+FJ_LAB[g.lv]+'">'+fujiIcon(g.lv)+'</span><small>'+FJ_LAB[g.lv]+'・雲 '+g.c+'%</small>':'<small>—</small>';}
       return '<tr'+(TRIP[d]?' class="trip"':'')+'><td class="d">'+lab+(TRIP[d]?'<span class="tg">行程日・'+esc(TRIP[d])+'</span>':'')+'</td><td>'+cell(m)+'</td><td>'+cell(n)+'</td></tr>';
     }).join("");
-    box.innerHTML='<table class="fj"><thead><tr><th style="text-align:left">日期</th><th>早上 06–10</th><th>白天 10–16</th></tr></thead><tbody>'+rows+'</tbody></table>';
-  }).catch(function(){box.innerHTML='<p class="fx-meta">暫時抓不到預報，請用下方按鈕查看。</p>';});
+    box.innerHTML=(off?offNote(off):'')+'<table class="fj"><thead><tr><th style="text-align:left">日期</th><th>早上 06–10</th><th>白天 10–16</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  }
+  fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(h){
+    if(!Array.isArray(h)||h.length<2)throw 0;
+    try{store("fujiWx",JSON.stringify({t:Date.now(),d:h}));}catch(e){}
+    draw(h);
+  }).catch(function(){
+    var sv=null;try{sv=JSON.parse(store("fujiWx")||"null");}catch(e){}
+    if(sv&&sv.d)draw(sv.d,sv.t);else box.innerHTML='<p class="fx-meta">暫時抓不到預報，請用下方按鈕查看。</p>';
+  });
 })();
 
 /* ---------- 匯率 ---------- */
@@ -1201,4 +1213,20 @@ if("IntersectionObserver" in window){
 })();
 </script>
 
+<div id="upd" class="upd" hidden><span>網站有新版本</span><button type="button" class="btn" id="upd-btn">點這裡更新</button></div>
+<script>
+(function(){
+  if(!("serviceWorker" in navigator))return;
+  var reloading=false;
+  navigator.serviceWorker.addEventListener("controllerchange",function(){if(reloading)return;reloading=true;location.reload();});
+  window.addEventListener("load",function(){
+    navigator.serviceWorker.register("sw.js").then(function(reg){
+      function ask(w){var b=document.getElementById("upd");if(!b||!w)return;b.hidden=false;document.getElementById("upd-btn").onclick=function(){w.postMessage("skip");};}
+      if(reg.waiting&&navigator.serviceWorker.controller)ask(reg.waiting);
+      reg.addEventListener("updatefound",function(){var w=reg.installing;w&&w.addEventListener("statechange",function(){if(w.state==="installed"&&navigator.serviceWorker.controller)ask(w);});});
+      document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")reg.update().catch(function(){});});
+    }).catch(function(){});
+  });
+})();
+</script>
 </body></html>
