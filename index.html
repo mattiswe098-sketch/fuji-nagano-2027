@@ -1010,6 +1010,8 @@ document.addEventListener("click",function(e){
   tax.addEventListener("change",calc);
   var q=document.getElementById("fx-quick");
   [1000,3000,5000,10000,30000].forEach(function(v){var b=document.createElement("button");b.type="button";b.className="btn";b.textContent="¥"+fmt(v,0);b.addEventListener("click",function(){jpy.value=v;last="jpy";calc();});q.appendChild(b);});
+  var clr=document.createElement("button");clr.type="button";clr.className="btn";clr.textContent="✕ 清除";
+  clr.addEventListener("click",function(){jpy.value="";twd.value="";last="jpy";try{jpy.focus();}catch(e){}});q.appendChild(clr);
 })();
 
 /* ---------- 住宿 ---------- */
