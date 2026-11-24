@@ -672,7 +672,7 @@ var DAYS=[
  items:[
   {t:"07:00",n:"旅館早餐",tg:["food"]},
   {t:"08:15",n:"出發 → 上林溫泉停車場",tg:["car"],q:"上林温泉",park:"地獄谷野猿公苑 駐車場 上林温泉",mc:"341 818 200*20",note:"步道約 30 分鐘，記得穿冰爪"},
-  {t:"09:00",n:"地獄谷野猿公苑",tg:["walk"],star:1,q:"地獄谷野猿公苑",tel:"0269-33-4379",note:"門票要事先在 Webket 買，09:00 時段\n❗ 10:00 離開"},
+  {t:"09:00",n:"地獄谷野猿公苑",tg:["walk"],star:1,q:"地獄谷野猿公苑",tel:"0269-33-4379",cam:"https://jigokudani-yaenkoen.co.jp/livecam/monkey/index.htm",note:"門票要事先在 Webket 買，09:00 時段\n❗ 10:00 離開"},
   {t:"10:00",n:"走回停車場",tg:["walk"],note:"雪地步道約 35 分鐘"},
   {t:"10:35",n:"開車上山（導航：上山）",tg:["car"],star:1,link:"https://www.google.com/maps/dir/?api=1&origin=%E5%9C%B0%E7%8D%84%E8%B0%B7%E9%87%8E%E7%8C%BF%E5%85%AC%E8%8B%91%20%E7%84%A1%E6%96%99%E9%A7%90%E8%BB%8A%E5%A0%B4&destination=%E6%88%B8%E9%9A%A0%E7%A5%9E%E7%A4%BE%20%E4%B8%AD%E7%A4%BE&travelmode=driving&waypoints=%E9%A0%88%E5%9D%82%E9%95%B7%E9%87%8E%E6%9D%B1IC%7C%E3%82%BB%E3%83%96%E3%83%B3-%E3%82%A4%E3%83%AC%E3%83%96%E3%83%B3%20%E9%95%B7%E9%87%8E%E6%B5%85%E5%B7%9D%E5%BA%97%7C36.71134,138.158753&origin_place_id=ChIJmfzsb4TzHWAR2yF-eGmrfY8&destination_place_id=ChIJqUaopGuF918R6vpw-DMDtyo&waypoint_place_ids=ChIJKab8hwSPHWARGbMVkSgcmm0%7CChIJe097XaeHHWARoLsG5AkaoWE%7CChIJw30wZLsp9l8RdmdZI8RAi5o",note:"導航已設好：須坂長野東 IC 下交流道 → セブン-イレブン 長野浅川店 → スパイラル（浅川ループライン）→ 戶隱中社\n信州中野 IC 上上信越道，ETC 卡先插好\n❗ 不走七曲り：路線預覽如果在善光寺西邊出現一段密集的 Z 字形急彎，就是七曲り，要重新導航"},
   {t:"11:30",n:"セブン-イレブン 長野浅川店 休息",tg:["rest"],star:1,q:"セブン-イレブン 長野浅川店",tel:"026-244-1107",note:"長野市上松 5-6-20｜24 小時\n去戶隱前最後的便利商店：上廁所、買水和零食（戶隱沒有便利商店）\n備用：往北開會先經過的 ローソン 長野上松三丁目店（上松 3-25-32，24 小時）\n休息約 15 分鐘，11:45 出發"},
@@ -776,6 +776,7 @@ function itemHtml(it,di,ii,drive){
   else if(it.q)a+='<a class="btn nav" target="_blank" rel="noopener" href="'+gq(it.q)+'">📍 導航</a>';
   if(it.park)a+='<a class="btn park" target="_blank" rel="noopener" href="'+gq(it.park)+'">🅿️ 停車場</a>';
   if(it.tel)a+='<a class="btn tel" href="tel:+81'+it.tel.replace(/^0/,"").replace(/-/g,"")+'">📞 '+esc(it.tel)+'</a>';
+  if(it.cam)a+='<a class="btn nav" target="_blank" rel="noopener" href="'+it.cam+'">📹 現場即時影像</a>';
   if(a)h+='<div class="acts">'+a+'</div>';
   if(it.mc){
     h+='<div class="mc"><span>Mapcode</span><b class="mcv">'+esc(it.mc)+'</b><button type="button" class="btn" data-copy="'+esc(it.mc)+'">複製</button></div>';
